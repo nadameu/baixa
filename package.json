@@ -1,0 +1,38 @@
+{
+	"name": "baixa",
+	"version": "4.0.0",
+	"description": "Preenchimento dados baixa",
+	"repository": "github:nadameu/baixa",
+	"license": "GPL-3.0",
+	"author": "nadameu",
+	"scripts": {
+		"prebuild": "rimraf ./.rpt2_cache/ ./dist",
+		"build": "rollup -c",
+		"build:dev": "npm run build -- --environment BUILD:development",
+		"build:serve": "npm run build -- --environment BUILD:serve --watch",
+		"build:watch": "npm run build:dev -- --watch",
+		"start": "npm run build:serve",
+		"test": "jest",
+		"type-check": "tsc",
+		"type-check:watch": "npm run type-check -- --watch"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@types/intl": "^1.2.0",
+		"@types/jest": "^24.0.23",
+		"jest": "^24.9.0",
+		"prettier": "^1.19.1",
+		"rimraf": "^3.0.0",
+		"rollup": "^1.27.0",
+		"rollup-plugin-node-resolve": "^5.2.0",
+		"rollup-plugin-postcss": "^2.0.3",
+		"rollup-plugin-serve": "^1.0.1",
+		"rollup-plugin-string": "^3.0.0",
+		"rollup-plugin-terser": "^5.1.2",
+		"rollup-plugin-typescript": "^1.0.1",
+		"ts-jest": "^24.1.0",
+		"tslib": "^1.10.0",
+		"typescript": "^3.7.2",
+		"userscript-meta": "^1.0.1"
+	}
+}
