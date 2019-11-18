@@ -1,1 +1,3 @@
-import './userscript.js';
+import { main } from './main';
+
+main();
