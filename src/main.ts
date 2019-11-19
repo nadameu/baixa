@@ -8,7 +8,7 @@ import { Resultado } from './Resultado';
 
 export const main = (win = window, doc = win.document) => {
 	const atualizarEstilos = adicionarEstilos();
-	win.addEventListener('resize', debounce(100, atualizarEstilos));
+	win.addEventListener('resize', debounce(100, atualizarEstilos, win));
 
 	const params = new URL(doc.location.href).searchParams;
 	if (!params.has('acao')) return;

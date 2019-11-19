@@ -1,10 +1,15 @@
+type TimerFunctions = {
+	[k in 'clearTimeout' | 'setTimeout']: Window[k];
+};
+
 export const debounce = <args extends any[]>(
 	ms: number,
-	callback: (...args: args) => void
-): ((...args: args) => void) => {
+	callback: (...args: args) => void,
+	{ clearTimeout, setTimeout }: TimerFunctions = window
+) => {
 	let timer: number;
 	return (...args: args) => {
-		window.clearTimeout(timer);
-		timer = window.setTimeout(callback, ms, ...args);
+		clearTimeout(timer);
+		timer = setTimeout(callback, ms, ...args);
 	};
 };
