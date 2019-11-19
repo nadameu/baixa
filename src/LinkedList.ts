@@ -1,6 +1,5 @@
-import { Elemento } from './Elemento';
-import { Link } from './Link';
 import { analisarGrupos } from './analisarGrupos';
+import { Elemento } from './Elemento';
 
 export class LinkedList {
 	grupos: { valor: number; elemento: Elemento }[][];

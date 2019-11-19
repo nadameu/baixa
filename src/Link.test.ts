@@ -1,6 +1,6 @@
-import { Link } from './Link';
 import { JSDOM } from 'jsdom';
 import { Elementos } from './Elementos';
+import { Link } from './Link';
 
 describe('Link', () => {
 	const { window } = new JSDOM(`<!doctype html><html><head></head><body>

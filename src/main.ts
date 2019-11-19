@@ -1,9 +1,10 @@
+import { adicionarEstilos } from './adicionarEstilos';
 import { Buffer } from './Buffer';
 import * as Constantes from './constantes';
-import { LinkedList } from './LinkedList';
-import { adicionarEstilos } from './adicionarEstilos';
 import { debounce } from './debounce';
 import { Elementos } from './Elementos';
+import { LinkedList } from './LinkedList';
+import { Resultado } from './Resultado';
 
 export const main = (win = window, doc = win.document) => {
 	const atualizarEstilos = adicionarEstilos();
@@ -48,52 +49,7 @@ export const main = (win = window, doc = win.document) => {
 		}
 
 		doc.body.insertAdjacentHTML('beforeend', '<div class="gmResultado"></div>');
-		interface Propriedades {
-			transition: string;
-			opacity: string | null;
-		}
-		class Resultado extends HTMLDivElement {
-			aplicarTransformacao(...propriedades: Propriedades[]) {
-				console.log(this);
-				if (propriedades.length > 0) {
-					let p = propriedades.splice(0, 1)[0];
-					requestAnimationFrame(() =>
-						requestAnimationFrame(() => {
-							this.style.transition = p.transition;
-							this.style.opacity = p.opacity;
-							this.aplicarTransformacao.apply(this, propriedades);
-						})
-					);
-				}
-			}
 
-			mostrar(texto: string, tamanho = '') {
-				const CARACTERES_POR_SEGUNDO = 20;
-				const MILISSEGUNDOS_POR_CARACTERE = 1000 / CARACTERES_POR_SEGUNDO;
-				const esperaMinima = texto.length * MILISSEGUNDOS_POR_CARACTERE;
-
-				this.style.display = '';
-				this.style.fontSize = tamanho;
-				this.textContent = texto;
-				this.aplicarTransformacao(
-					{
-						transition: '1ms',
-						opacity: '1',
-					},
-					{
-						transition: `500ms linear ${esperaMinima}ms`,
-						opacity: '0',
-					}
-				);
-			}
-
-			mostrarInstrucoes() {
-				this.mostrar(
-					'Digite a soma das opções que deseja selecionar. Pressione ENTER para confirmar.',
-					'32px'
-				);
-			}
-		}
 		const resultado: Resultado = Object.setPrototypeOf(
 			doc.querySelector('.gmResultado') as HTMLDivElement,
 			Resultado.prototype
