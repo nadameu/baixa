@@ -6,10 +6,9 @@ export class Buffer extends Array<string> {
 	}
 
 	pushDigito(digito: string): number | null {
-		const comprimento = this.maximo.toString().length;
 		Array.prototype.push.call(this, digito);
 		let valor = parseInt(this.join(''));
-		while (this.length > comprimento || valor > this.maximo) {
+		while (valor > this.maximo) {
 			this.splice(0, 1);
 			valor = parseInt(this.join(''));
 		}
