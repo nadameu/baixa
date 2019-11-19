@@ -1,6 +1,6 @@
 import { Link } from './Link';
 import { JSDOM } from 'jsdom';
-import { makeElementos } from './Elementos';
+import { Elementos } from './Elementos';
 
 describe('Link', () => {
 	const { window } = new JSDOM(`<!doctype html><html><head></head><body>
@@ -8,8 +8,7 @@ describe('Link', () => {
 		<input id="ok-tambem" type="radio" />
 	</body></html>`);
 	const { document } = window;
-	const Elementos = makeElementos(document);
-	const elementos = Elementos.fromIds(['ok', 'ok-tambem']);
+	const elementos = Elementos.fromIds(['ok', 'ok-tambem'], document);
 
 	test('0', () => {
 		const link = new Link(0, elementos);

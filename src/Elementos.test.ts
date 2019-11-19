@@ -1,5 +1,5 @@
 import { JSDOM } from 'jsdom';
-import { makeElementos } from './Elementos';
+import { Elementos } from './Elementos';
 
 declare global {
 	var document: HTMLDocument;
@@ -15,14 +15,10 @@ test('Elementos', () => {
 		</body></html>`
 	);
 	const { document } = window;
-	const Elementos = makeElementos(document);
-	const elementos = Elementos.fromIds([
-		'ok',
-		'nao-eh-radio',
-		'ok-tambem',
-		'nao-eh-input',
-		'id-inexistente',
-	]);
+	const elementos = Elementos.fromIds(
+		['ok', 'nao-eh-radio', 'ok-tambem', 'nao-eh-input', 'id-inexistente'],
+		document
+	);
 	expect(elementos).toHaveLength(2);
 	expect(elementos[0].elemento).toEqual(document.getElementById('ok'));
 	expect(elementos[1].elemento).toEqual(document.getElementById('ok-tambem'));

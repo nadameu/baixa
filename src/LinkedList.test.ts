@@ -1,7 +1,6 @@
-import { LinkedList } from './LinkedList';
 import { JSDOM } from 'jsdom';
-import { makeElementos } from './Elementos';
-import { Link } from './Link';
+import { Elementos } from './Elementos';
+import { LinkedList } from './LinkedList';
 
 describe('Valores inválidos', () => {
 	const { window } = new JSDOM(`<!doctype html><html><head></head><body>
@@ -10,8 +9,10 @@ describe('Valores inválidos', () => {
 		<input id="sem-grupo" type="radio" />
 	</body></html>`);
 	const { document } = window;
-	const Elementos = makeElementos(document);
-	const [x0, x1, semGrupo] = Elementos.fromIds(['x-zero', 'x-um', 'sem-grupo']);
+	const [x0, x1, semGrupo] = Elementos.fromIds(
+		['x-zero', 'x-um', 'sem-grupo'],
+		document
+	);
 
 	test('Não é array', () => {
 		expect(() => new LinkedList(null as any)).toThrow();
@@ -62,11 +63,10 @@ test('LinkedList', () => {
 		<input id="z-nove" name="grupo-z" type="radio" />
 	</body></html>`);
 	const { document } = window;
-	const Elementos = makeElementos(document);
-	const grupoW = Elementos.fromIds(['w-zero', 'w-um', 'w-dois']);
-	const grupoX = Elementos.fromIds(['x-zero']);
-	const grupoY = Elementos.fromIds(['y-zero', 'y-tres', 'y-seis']);
-	const grupoZ = Elementos.fromIds(['z-zero', 'z-nove']);
+	const grupoW = Elementos.fromIds(['w-zero', 'w-um', 'w-dois'], document);
+	const grupoX = Elementos.fromIds(['x-zero'], document);
+	const grupoY = Elementos.fromIds(['y-zero', 'y-tres', 'y-seis'], document);
+	const grupoZ = Elementos.fromIds(['z-zero', 'z-nove'], document);
 	const grupos = [grupoW, grupoX, grupoY, grupoZ];
 	const linkedList = new LinkedList(grupos);
 	grupos.forEach(grupo =>
