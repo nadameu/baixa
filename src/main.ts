@@ -2,58 +2,18 @@ import { Buffer } from './Buffer';
 import * as Constantes from './constantes';
 import { LinkedList } from './LinkedList';
 import { makeElementos } from './Elementos';
+import { adicionarEstilos } from './adicionarEstilos';
+import { debounce } from './debounce';
 
 export const main = () => {
-	const alturaTela = document.body.clientHeight;
-	const tamanhoFonte = alturaTela / 3;
-	document.head.insertAdjacentHTML(
-		'beforeend',
-		`<style>
-.gmLabel {
-	border-color: #faa;
-}
-.gmLabel.gmChecked {
-	background: #fdc;
-}
-#gmFechar {
-	cursor: pointer;
-}
-.gmLabel label {
-	cursor: pointer;
-}
-.gmValor {
-	display: inline-block;
-	width: 18px;
-	height: 18px;
-	line-height: 18px;
-	color: #333;
-	background: #cea;
-	border-radius: 100%;
-}
-.gmResultado {
-	opacity: 0;
-	will-change: opacity;
-	position: fixed;
-	display: flex;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	padding: 15%;
-	background: rgba(0,0,0,0.5);
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	font-size: ${tamanhoFonte}px;
-	font-weight: bold;
-	color: white;
-}
-</style>`
-	);
+	const atualizarEstilos = adicionarEstilos();
+	window.addEventListener('resize', debounce(100, atualizarEstilos));
 
-	const etapa = window.location.search.match(
+	const match = window.location.search.match(
 		/^\?acao=baixa_arquivamento_processo_etapa_(1|3)&/
-	)[1];
+	);
+	if (!match) return;
+	const etapa = match[1];
 	if (etapa === '1') {
 		const pendencias = document.querySelector('#fldPendencias');
 		if (!pendencias)
