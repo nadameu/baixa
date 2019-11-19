@@ -81,7 +81,6 @@ export const main = (win = window, doc = win.document) => {
 		);
 
 		const buffer = new Buffer(valores.maximo);
-		console.log('valores:', valores);
 		doc.addEventListener('keypress', evt => {
 			if (/^\d$/.test(evt.key)) {
 				const valor = buffer.pushDigito(evt.key) ?? 0;
