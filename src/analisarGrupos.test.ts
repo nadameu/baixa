@@ -14,13 +14,11 @@ test('teste 1', () => {
 				{ valor: 1, elemento: 'condenacao-sim' },
 				{ valor: 2, elemento: 'condenacao-nao' },
 			],
-
 			[
 				{ valor: 0, elemento: 'honorarios-na' },
 				{ valor: 3, elemento: 'honorarios-sim' },
 				{ valor: 6, elemento: 'honorarios-nao' },
 			],
-
 			[
 				{ valor: 0, elemento: 'apensos-nao' },
 				{ valor: 9, elemento: 'apensos-sim' },
@@ -45,19 +43,16 @@ test('teste 2', () => {
 				{ valor: 2, elemento: 'a-nao' },
 				{ valor: 3, elemento: 'a-talvez' },
 			],
-
 			[
 				{ valor: 0, elemento: 'b-na' },
 				{ valor: 4, elemento: 'b-sim' },
 				{ valor: 8, elemento: 'b-nao' },
 				{ valor: 12, elemento: 'b-talvez' },
 			],
-
 			[
 				{ valor: 0, elemento: 'c-nao' },
 				{ valor: 16, elemento: 'c-sim' },
 			],
-
 			[
 				{ valor: 0, elemento: 'd-na' },
 				{ valor: 32, elemento: 'd-sim' },
@@ -81,29 +76,23 @@ test('teste 3', () => {
 		maximo: 23,
 		grupos: [
 			[{ valor: 0, elemento: 'a-w' }],
-
 			[
 				{ valor: 0, elemento: 'b-w' },
 				{ valor: 1, elemento: 'b-x' },
 			],
-
 			[{ valor: 0, elemento: 'c-w' }],
-
 			[
 				{ valor: 0, elemento: 'd-w' },
 				{ valor: 2, elemento: 'd-x' },
 				{ valor: 4, elemento: 'd-y' },
 				{ valor: 6, elemento: 'd-z' },
 			],
-
 			[{ valor: 0, elemento: 'e-w' }],
-
 			[
 				{ valor: 0, elemento: 'f-w' },
 				{ valor: 8, elemento: 'f-x' },
 				{ valor: 16, elemento: 'f-y' },
 			],
-
 			[{ valor: 0, elemento: 'g-w' }],
 		],
 	});
