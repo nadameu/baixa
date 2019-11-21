@@ -1,0 +1,21 @@
+.gmLabel {
+	border-color: #faa;
+}
+.gmLabel.gmChecked {
+	background: #fdc;
+}
+#gmFechar {
+	cursor: pointer;
+}
+.gmLabel label {
+	cursor: pointer;
+}
+.gmValor {
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	color: #333;
+	background: #cea;
+	border-radius: 100%;
+}

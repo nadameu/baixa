@@ -1,0 +1,17 @@
+.gmResultado {
+	position: fixed;
+	display: flex;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 15%;
+	background: rgba(0, 0, 0, 0.5);
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	font-size: 32px;
+	font-weight: bold;
+	color: white;
+	pointer-events: none;
+}

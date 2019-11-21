@@ -1,7 +1,7 @@
 export class Elemento {
 	elemento: HTMLInputElement;
 	constructor(elemento: HTMLInputElement) {
-		verificarElementoEhRadio(elemento);
+		verificarElementoÉRadio(elemento);
 		this.elemento = elemento;
 	}
 	set selecionado(selecionado: boolean) {
@@ -24,7 +24,7 @@ class ErroElemento extends TypeError {
 	}
 }
 
-function verificarElementoEhRadio(
+function verificarElementoÉRadio(
 	elemento: unknown
 ): asserts elemento is HTMLInputElement {
 	if (

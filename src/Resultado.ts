@@ -1,47 +1,66 @@
-interface Propriedades {
-	transition: string;
-	opacity: string | null;
-}
+import './Resultado.css';
 
-export class Resultado extends HTMLDivElement {
-	aplicarTransformacao(...propriedades: Propriedades[]) {
-		console.log(this);
-		if (propriedades.length > 0) {
-			let p = propriedades.splice(0, 1)[0];
-			requestAnimationFrame(() =>
-				requestAnimationFrame(() => {
-					this.style.transition = p.transition;
-					this.style.opacity = p.opacity;
-					this.aplicarTransformacao.apply(this, propriedades);
-				})
-			);
-		}
+const CARACTERES_POR_SEGUNDO = 20;
+const MILISSEGUNDOS_POR_CARACTERE = 1000 / CARACTERES_POR_SEGUNDO;
+
+export function Resultado(
+	mensagemInicial: string,
+	doc = document,
+	win = doc.defaultView!
+) {
+	const div = doc.createElement('div');
+	div.className = 'gmResultado';
+	div.textContent = mensagemInicial;
+	document.body.appendChild(div);
+
+	let mensagemInicialMostrada = false;
+
+	div.addEventListener('transitioncancel', onFimTransição, { once: true });
+	div.addEventListener('transitionend', onFimTransição, { once: true });
+
+	div.getBoundingClientRect();
+	div.style.transition = `opacity 500ms linear ${calcularEsperaMínima(
+		mensagemInicial
+	)}ms`;
+	div.style.opacity = '0';
+
+	return { mostrarTexto, ocultar };
+
+	function mostrarTexto(texto: string) {
+		div.style.transition = '';
+		div.style.opacity = '';
+		div.textContent = texto;
+		div.getBoundingClientRect();
+		div.style.transition = `opacity 500ms linear ${calcularEsperaMínima(
+			texto
+		)}ms`;
+		div.style.opacity = '0';
 	}
 
-	mostrar(texto: string, tamanho = '') {
-		const CARACTERES_POR_SEGUNDO = 20;
-		const MILISSEGUNDOS_POR_CARACTERE = 1000 / CARACTERES_POR_SEGUNDO;
-		const esperaMinima = texto.length * MILISSEGUNDOS_POR_CARACTERE;
-
-		this.style.display = '';
-		this.style.fontSize = tamanho;
-		this.textContent = texto;
-		this.aplicarTransformacao(
-			{
-				transition: '1ms',
-				opacity: '1',
-			},
-			{
-				transition: `500ms linear ${esperaMinima}ms`,
-				opacity: '0',
-			}
-		);
+	function ocultar() {
+		div.style.display = 'none';
+		div.getBoundingClientRect();
+		div.style.transition = '';
+		div.style.opacity = '0';
+		div.style.display = '';
 	}
 
-	mostrarInstrucoes() {
-		this.mostrar(
-			'Digite a soma das opções que deseja selecionar. Pressione ENTER para confirmar.',
-			'32px'
-		);
+	function onFimTransição() {
+		if (mensagemInicialMostrada) return;
+		mensagemInicialMostrada = true;
+		win.addEventListener('resize', ajustarTamanhoFonte);
+		ajustarTamanhoFonte();
+	}
+
+	function ajustarTamanhoFonte() {
+		div.style.fontSize = `${(obterAlturaJanela() / 3) | 0}px`;
+	}
+
+	function obterAlturaJanela() {
+		return doc.documentElement.clientHeight;
+	}
+
+	function calcularEsperaMínima(mensagem: string) {
+		return mensagem.length * MILISSEGUNDOS_POR_CARACTERE;
 	}
 }

@@ -1,14 +1,14 @@
 export class Buffer extends Array<string> {
-	maximo: number;
-	constructor(maximo: number) {
+	máximo: number;
+	constructor(máximo: number) {
 		super();
-		this.maximo = maximo;
+		this.máximo = máximo;
 	}
 
-	pushDigito(digito: string): number | null {
-		Array.prototype.push.call(this, digito);
+	pushDígito(dígito: string): number | null {
+		Array.prototype.push.call(this, dígito);
 		let valor = parseInt(this.join(''));
-		while (valor > this.maximo) {
+		while (valor > this.máximo) {
 			this.splice(0, 1);
 			valor = parseInt(this.join(''));
 		}
