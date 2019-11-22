@@ -1,6 +1,7 @@
 import { multiplicarAnteriores } from './multiplicarAnteriores';
+import { NEArray } from './NEArray';
 
-export const analisarGrupos = <a>(grupos: a[][]) => {
+export const analisarGrupos = <a>(grupos: NEArray<a>[]) => {
 	const quantidades = grupos.map(grupo => grupo.length);
 	const multiplicadores = multiplicarAnteriores(quantidades);
 	const maximos = grupos.map(
