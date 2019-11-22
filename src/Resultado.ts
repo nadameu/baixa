@@ -1,7 +1,8 @@
 import './Resultado.css';
 
-const CARACTERES_POR_SEGUNDO = 20;
+const CARACTERES_POR_SEGUNDO = 15;
 const MILISSEGUNDOS_POR_CARACTERE = 1000 / CARACTERES_POR_SEGUNDO;
+const ESPERA_MINIMA = 150;
 
 export function Resultado(
 	mensagemInicial: string,
@@ -61,6 +62,9 @@ export function Resultado(
 	}
 
 	function calcularEsperaMínima(mensagem: string) {
-		return mensagem.length * MILISSEGUNDOS_POR_CARACTERE;
+		return Math.max(
+			ESPERA_MINIMA,
+			mensagem.length * MILISSEGUNDOS_POR_CARACTERE
+		);
 	}
 }
