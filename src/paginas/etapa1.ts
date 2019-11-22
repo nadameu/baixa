@@ -4,7 +4,7 @@ import { D } from '../Digito';
 import '../estilos.css';
 import { G, Grupo, GrupoVazio } from '../Grupo';
 import { Gs } from '../Grupos';
-import { LinkedList } from '../LinkedList';
+import { Selecionador } from '../Selecionador';
 import { ocultarMenuLateral } from '../ocultarMenuLateral';
 import { query } from '../query';
 import { Resultado } from '../Resultado';
@@ -91,7 +91,7 @@ export function etapa1(
 		const gruposValidos = Gs.fromArray(gruposEncontrados);
 		if (gruposValidos === null)
 			throw new Error('Erro ao processar os elementos da página.');
-		const valores = new LinkedList(gruposValidos);
+		const valores = Selecionador(gruposValidos);
 
 		const buffer = Buffer(valores.maximo);
 
@@ -106,7 +106,7 @@ export function etapa1(
 		if (digito !== null) {
 			const valor = buffer.pushDígito(digito);
 			mostrarTexto(valor.toString());
-			valores.valor = valor;
+			valores.setValor(valor);
 		} else if (evt.keyCode === 13) {
 			baixar.click();
 		}

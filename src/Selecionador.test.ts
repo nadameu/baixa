@@ -1,9 +1,10 @@
 import { JSDOM } from 'jsdom';
-import { LinkedList } from './LinkedList';
 import { G, Grupo } from './Grupo';
-import { Gs, Grupos } from './Grupos';
+import { Grupos, Gs } from './Grupos';
+import { Selecionador } from './Selecionador';
+import { N } from './Nat';
 
-test('LinkedList', () => {
+test('Selecionador', () => {
 	const { window } = new JSDOM(`<!doctype html><html><head></head><body>
 		<input id="w-zero" name="grupo-w" type="radio" />
 		<input id="w-um" name="grupo-w" type="radio" />
@@ -26,7 +27,7 @@ test('LinkedList', () => {
 	const grupoZ = G.fromIds(['z-zero', 'z-nove'], document) as Grupo;
 	const grupos = Gs.fromArray([grupoW, grupoX, grupoY, grupoZ]) as Grupos;
 
-	const linkedList = new LinkedList(grupos);
+	const linkedList = Selecionador(grupos);
 	grupos.forEach(grupo =>
 		grupo.forEach(elemento => {
 			// Garante que os valores corretos sejam selecionados mesmo sem as regras
@@ -41,62 +42,62 @@ test('LinkedList', () => {
 			grupo.filter(({ checked }) => checked).map(({ id }) => id)
 		);
 
-	linkedList.valor = 0;
+	linkedList.setValor(N.fromNumber(0)!);
 	expect(idsSelecionados()).toEqual(['w-zero', 'x-zero', 'y-zero', 'z-zero']);
 
-	linkedList.valor = 1;
+	linkedList.setValor(N.fromNumber(1)!);
 	expect(idsSelecionados()).toEqual(['w-um', 'x-zero', 'y-zero', 'z-zero']);
 
-	linkedList.valor = 2;
+	linkedList.setValor(N.fromNumber(2)!);
 	expect(idsSelecionados()).toEqual(['w-dois', 'x-zero', 'y-zero', 'z-zero']);
 
-	linkedList.valor = 3;
+	linkedList.setValor(N.fromNumber(3)!);
 	expect(idsSelecionados()).toEqual(['w-zero', 'x-zero', 'y-tres', 'z-zero']);
 
-	linkedList.valor = 4;
+	linkedList.setValor(N.fromNumber(4)!);
 	expect(idsSelecionados()).toEqual(['w-um', 'x-zero', 'y-tres', 'z-zero']);
 
-	linkedList.valor = 5;
+	linkedList.setValor(N.fromNumber(5)!);
 	expect(idsSelecionados()).toEqual(['w-dois', 'x-zero', 'y-tres', 'z-zero']);
 
-	linkedList.valor = 6;
+	linkedList.setValor(N.fromNumber(6)!);
 	expect(idsSelecionados()).toEqual(['w-zero', 'x-zero', 'y-seis', 'z-zero']);
 
-	linkedList.valor = 7;
+	linkedList.setValor(N.fromNumber(7)!);
 	expect(idsSelecionados()).toEqual(['w-um', 'x-zero', 'y-seis', 'z-zero']);
 
-	linkedList.valor = 8;
+	linkedList.setValor(N.fromNumber(8)!);
 	expect(idsSelecionados()).toEqual(['w-dois', 'x-zero', 'y-seis', 'z-zero']);
 
-	linkedList.valor = 9;
+	linkedList.setValor(N.fromNumber(9)!);
 	expect(idsSelecionados()).toEqual(['w-zero', 'x-zero', 'y-zero', 'z-nove']);
 
-	linkedList.valor = 10;
+	linkedList.setValor(N.fromNumber(10)!);
 	expect(idsSelecionados()).toEqual(['w-um', 'x-zero', 'y-zero', 'z-nove']);
 
-	linkedList.valor = 11;
+	linkedList.setValor(N.fromNumber(11)!);
 	expect(idsSelecionados()).toEqual(['w-dois', 'x-zero', 'y-zero', 'z-nove']);
 
-	linkedList.valor = 12;
+	linkedList.setValor(N.fromNumber(12)!);
 	expect(idsSelecionados()).toEqual(['w-zero', 'x-zero', 'y-tres', 'z-nove']);
 
-	linkedList.valor = 13;
+	linkedList.setValor(N.fromNumber(13)!);
 	expect(idsSelecionados()).toEqual(['w-um', 'x-zero', 'y-tres', 'z-nove']);
 
-	linkedList.valor = 14;
+	linkedList.setValor(N.fromNumber(14)!);
 	expect(idsSelecionados()).toEqual(['w-dois', 'x-zero', 'y-tres', 'z-nove']);
 
-	linkedList.valor = 15;
+	linkedList.setValor(N.fromNumber(15)!);
 	expect(idsSelecionados()).toEqual(['w-zero', 'x-zero', 'y-seis', 'z-nove']);
 
-	linkedList.valor = 16;
+	linkedList.setValor(N.fromNumber(16)!);
 	expect(idsSelecionados()).toEqual(['w-um', 'x-zero', 'y-seis', 'z-nove']);
 
-	linkedList.valor = 17;
+	linkedList.setValor(N.fromNumber(17)!);
 	expect(idsSelecionados()).toEqual(['w-dois', 'x-zero', 'y-seis', 'z-nove']);
 
 	expect(() => {
-		linkedList.valor = 18;
+		linkedList.setValor(N.fromNumber(18)!);
 	}).toThrow();
 });
 
