@@ -1,6 +1,11 @@
 import { RadioInput } from './RadioInput';
 
-export function Elemento(elemento: RadioInput) {
+export interface Elemento {
+	setSelecionado: (selecionado: boolean) => void;
+	adicionarTexto: (texto: string) => void;
+}
+
+export function Elemento(elemento: RadioInput): Elemento {
 	return { setSelecionado, adicionarTexto };
 
 	function setSelecionado(selecionado: boolean) {

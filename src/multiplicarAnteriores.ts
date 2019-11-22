@@ -1,3 +1,7 @@
+import { Nat } from './Nat';
+
+export function multiplicarAnteriores(xs: Nat[]): Nat[];
+export function multiplicarAnteriores(xs: number[]): number[];
 export function multiplicarAnteriores(xs: number[]): number[] {
 	return xs.map((_, i) => produto(xs.slice(0, i)));
 }
