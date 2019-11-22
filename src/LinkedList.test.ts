@@ -1,51 +1,7 @@
 import { JSDOM } from 'jsdom';
-import { Elementos } from './Elementos';
 import { LinkedList } from './LinkedList';
-
-describe('Valores inválidos', () => {
-	const { window } = new JSDOM(`<!doctype html><html><head></head><body>
-		<input id="x-zero" name="grupo-x" type="radio" />
-		<input id="x-um" name="grupo-x" type="radio" />
-		<input id="sem-grupo" type="radio" />
-	</body></html>`);
-	const { document } = window;
-	const [x0, x1, semGrupo] = Elementos.fromIds(
-		['x-zero', 'x-um', 'sem-grupo'],
-		document
-	);
-
-	test('Não é array', () => {
-		expect(() => new LinkedList(null as any)).toThrow();
-	});
-
-	test('Array vazio', () => {
-		expect(() => new LinkedList([])).toThrow();
-	});
-
-	test('Grupo não é array', () => {
-		expect(() => new LinkedList([null as any])).toThrow();
-	});
-
-	test('Grupo vazio', () => {
-		expect(() => new LinkedList([[]])).toThrow();
-	});
-
-	test('Grupo não contém elemento', () => {
-		expect(() => new LinkedList([[null as any]])).toThrow();
-	});
-
-	test('Elementos repetidos', () => {
-		expect(() => new LinkedList([[x0, x0]])).toThrow();
-	});
-
-	test('Elemento sem atributo "name"', () => {
-		expect(() => new LinkedList([[semGrupo]])).toThrow();
-	});
-
-	test('Elementos com mesmo atributo "name" em grupos diferentes', () => {
-		expect(() => new LinkedList([[x0], [x1]])).toThrow();
-	});
-});
+import { G, Grupo } from './Grupo';
+import { Gs, Grupos } from './Grupos';
 
 test('LinkedList', () => {
 	const { window } = new JSDOM(`<!doctype html><html><head></head><body>
@@ -63,29 +19,26 @@ test('LinkedList', () => {
 		<input id="z-nove" name="grupo-z" type="radio" />
 	</body></html>`);
 	const { document } = window;
-	const grupoW = Elementos.fromIds(['w-zero', 'w-um', 'w-dois'], document);
-	const grupoX = Elementos.fromIds(['x-zero'], document);
-	const grupoY = Elementos.fromIds(['y-zero', 'y-tres', 'y-seis'], document);
-	const grupoZ = Elementos.fromIds(['z-zero', 'z-nove'], document);
-	const grupos = [grupoW, grupoX, grupoY, grupoZ];
+
+	const grupoW = G.fromIds(['w-zero', 'w-um', 'w-dois'], document) as Grupo;
+	const grupoX = G.fromIds(['x-zero'], document) as Grupo;
+	const grupoY = G.fromIds(['y-zero', 'y-tres', 'y-seis'], document) as Grupo;
+	const grupoZ = G.fromIds(['z-zero', 'z-nove'], document) as Grupo;
+	const grupos = Gs.fromArray([grupoW, grupoX, grupoY, grupoZ]) as Grupos;
+
 	const linkedList = new LinkedList(grupos);
 	grupos.forEach(grupo =>
 		grupo.forEach(elemento => {
-			elemento.elemento.name = '';
+			// Garante que os valores corretos sejam selecionados mesmo sem as regras
+			// impostas pelo DOM
+			elemento.name = '';
 		})
 	);
 	expect(linkedList.maximo).toBe(17);
 
 	const idsSelecionados = () =>
-		grupos.reduce(
-			(acc: string[], grupo) =>
-				acc.concat(
-					grupo
-						.map(elt => elt.elemento)
-						.filter(elemento => elemento.checked)
-						.map(elt => elt.id)
-				),
-			[]
+		bind(grupos, grupo =>
+			grupo.filter(({ checked }) => checked).map(({ id }) => id)
 		);
 
 	linkedList.valor = 0;
@@ -146,3 +99,7 @@ test('LinkedList', () => {
 		linkedList.valor = 18;
 	}).toThrow();
 });
+
+function bind<a, b>(xs: a[], f: (_: a) => b[]): b[] {
+	return xs.reduce((ys: b[], x) => ys.concat(f(x)), []);
+}
