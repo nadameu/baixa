@@ -12,39 +12,44 @@ describe('fromIds', () => {
 			</body></html>`
 	);
 	const { document } = window;
+	describe('Inválidos', () => {
+		test('Elemento repetido', () => {
+			expect(G.fromIds(['ok', 'ok'], document)).toBeNull();
+		});
 
-	test('Vazio', () => {
-		expect(G.fromIds([], document)).toBeNull();
+		test('Um elemento inválido em meio a outros válidos', () => {
+			expect(
+				G.fromIds(['ok', 'ok-tambem', 'mais-um-ok', 'nao-eh-radio'], document)
+			).toBeNull();
+		});
+
+		test('Atributos "name" diferentes', () => {
+			expect(G.fromIds(['ok', 'ok-tambem'], document)).toBeNull();
+		});
 	});
 
-	test('Elemento repetido', () => {
-		expect(G.fromIds(['ok', 'ok'], document)).toBeNull();
-	});
+	describe('Válidos', () => {
+		test('Vazio', () => {
+			expect(G.fromIds([], document)).toEqual([]);
+		});
 
-	test('Um elemento inválido', () => {
-		expect(G.fromIds(['nao-eh-input'], document)).toBeNull();
-	});
+		test('Todos os elementos inválidos', () => {
+			expect(G.fromIds(['inexistente-1', 'inexistente-2'], document)).toEqual(
+				[]
+			);
+		});
 
-	test('Ao menos um elemento inválido', () => {
-		expect(
-			G.fromIds(['ok', 'ok-tambem', 'mais-um-ok', 'nao-eh-radio'], document)
-		).toBeNull();
-	});
+		test('Um elemento válido', () => {
+			expect(G.fromIds(['ok'], document)).toEqual([
+				document.getElementById('ok'),
+			]);
+		});
 
-	test('Atributos "name" diferentes', () => {
-		expect(G.fromIds(['ok', 'ok-tambem'], document)).toBeNull();
-	});
-
-	test('Um elemento válido', () => {
-		expect(G.fromIds(['ok'], document)).toEqual([
-			document.getElementById('ok'),
-		]);
-	});
-
-	test('Mesmo atributo "name"', () => {
-		const ids = ['ok', 'mais-um-ok'];
-		expect(G.fromIds(ids, document)).toEqual(
-			ids.map(id => document.getElementById(id)!)
-		);
+		test('Mesmo atributo "name"', () => {
+			const ids = ['ok', 'mais-um-ok'];
+			expect(G.fromIds(ids, document)).toEqual(
+				ids.map(id => document.getElementById(id)!)
+			);
+		});
 	});
 });

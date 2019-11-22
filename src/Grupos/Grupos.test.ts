@@ -1,7 +1,6 @@
 import { JSDOM } from 'jsdom';
 import { Gs } from '.';
-import { G } from '../Grupo';
-import { Grupo } from '../Grupo/defs';
+import { G, Grupo, GrupoVazio } from '../Grupo';
 
 describe('fromArray', () => {
 	const { window } = new JSDOM(
@@ -31,5 +30,12 @@ describe('fromArray', () => {
 		const b = G.fromIds(['b-0', 'b-1'], document) as Grupo;
 		const grupos = [a, b];
 		expect(Gs.fromArray(grupos)).toEqual(grupos);
+	});
+
+	test('Um grupo vazio', () => {
+		const vazio = G.fromIds([], document) as GrupoVazio;
+		const b = G.fromIds(['b-0', 'b-1'], document) as Grupo;
+		const grupos = [vazio, b];
+		expect(Gs.fromArray(grupos)).toEqual(grupos.filter(g => g.length > 0));
 	});
 });

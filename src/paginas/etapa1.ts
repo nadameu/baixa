@@ -2,7 +2,7 @@ import { Buffer } from '../Buffer';
 import * as Constantes from '../constantes';
 import { D } from '../Digito';
 import '../estilos.css';
-import { G, Grupo } from '../Grupo';
+import { G, Grupo, GrupoVazio } from '../Grupo';
 import { Gs } from '../Grupos';
 import { LinkedList } from '../LinkedList';
 import { ocultarMenuLateral } from '../ocultarMenuLateral';
@@ -86,7 +86,7 @@ export function etapa1(
 			apensosLEF,
 		];
 		const gruposEncontrados = gruposPossíveis.filter(
-			(grupo): grupo is Grupo => grupo !== null
+			(grupo): grupo is Grupo | GrupoVazio => grupo !== null
 		);
 		const gruposValidos = Gs.fromArray(gruposEncontrados);
 		if (gruposValidos === null)

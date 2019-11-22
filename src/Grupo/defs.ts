@@ -8,3 +8,11 @@ export interface Grupo extends NEArray<RadioInput> {
 }
 
 export const Grupo = undefined as never;
+
+declare const IsGrupoVazio: unique symbol;
+
+export interface GrupoVazio extends ReadonlyArray<RadioInput> {
+	[IsGrupoVazio]: never;
+}
+
+export const GrupoVazio = undefined as never;
