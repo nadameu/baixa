@@ -12,7 +12,6 @@ export function Resultado(
 ) {
 	const div = doc.createElement('div');
 	div.className = 'gmResultado';
-	div.textContent = mensagemInicial;
 	doc.body.appendChild(div);
 
 	let mensagemInicialMostrada = false;
@@ -20,23 +19,14 @@ export function Resultado(
 	div.addEventListener('transitioncancel', onFimTransição, { once: true });
 	div.addEventListener('transitionend', onFimTransição, { once: true });
 
-	div.getBoundingClientRect();
-	div.style.transition = `opacity 500ms linear ${calcularEsperaMínima(
-		mensagemInicial
-	)}ms`;
-	div.style.opacity = '0';
+	alteraTextoAguardaEFade(mensagemInicial);
 
 	return { mostrarTexto, ocultar };
 
 	function mostrarTexto(texto: string) {
 		div.style.transition = '';
 		div.style.opacity = '';
-		div.textContent = texto;
-		div.getBoundingClientRect();
-		div.style.transition = `opacity 500ms linear ${calcularEsperaMínima(
-			texto
-		)}ms`;
-		div.style.opacity = '0';
+		alteraTextoAguardaEFade(texto);
 	}
 
 	function ocultar() {
@@ -52,6 +42,15 @@ export function Resultado(
 		mensagemInicialMostrada = true;
 		win.addEventListener('resize', debounce(150, ajustarTamanhoFonte));
 		ajustarTamanhoFonte();
+	}
+
+	function alteraTextoAguardaEFade(texto: string) {
+		div.textContent = texto;
+		div.getBoundingClientRect();
+		div.style.transition = `opacity 500ms linear ${calcularEsperaMínima(
+			texto
+		)}ms`;
+		div.style.opacity = '0';
 	}
 
 	function ajustarTamanhoFonte() {
