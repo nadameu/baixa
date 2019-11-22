@@ -1,21 +1,24 @@
 import { JSDOM } from 'jsdom';
 import { Elemento } from './Elemento';
+import { R } from './RadioInput';
 
 test('Elemento', () => {
 	const { window } = new JSDOM(
-		`<!doctype html><html><head></head><body><input id="zero" type="radio"/></body></html>`
+		`<!doctype html><html><head></head><body><input id="zero" type="radio" name="meu-nome"/></body></html>`
 	);
 	const { document } = window;
-	const elemento = new Elemento(
-		document.getElementById('zero') as HTMLInputElement
-	);
-	elemento.selecionado = true;
-	expect(elemento.elemento.checked).toBe(true);
 
-	elemento.selecionado = false;
-	expect(elemento.elemento.checked).toBe(false);
+	const zero = R.fromId('zero', document);
+	if (zero === null) throw new Error('Não é um RadioInput válido.');
 
-	elemento.texto = 'Texto inserido antes do elemento';
+	const elemento = Elemento(zero);
+	elemento.setSelecionado(true);
+	expect(zero.checked).toBe(true);
+
+	elemento.setSelecionado(false);
+	expect(zero.checked).toBe(false);
+
+	elemento.adicionarTexto('Texto inserido antes do elemento');
 	expect(document.body).toMatchInlineSnapshot(`
 		<body>
 		  <span
@@ -25,6 +28,7 @@ test('Elemento', () => {
 		  </span>
 		  <input
 		    id="zero"
+		    name="meu-nome"
 		    type="radio"
 		  />
 		</body>

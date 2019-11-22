@@ -1,38 +1,16 @@
-export class Elemento {
-	elemento: HTMLInputElement;
-	constructor(elemento: HTMLInputElement) {
-		verificarElementoÉRadio(elemento);
-		this.elemento = elemento;
+import { RadioInput } from './RadioInput';
+
+export function Elemento(elemento: RadioInput) {
+	return { setSelecionado, adicionarTexto };
+
+	function setSelecionado(selecionado: boolean) {
+		elemento.checked = selecionado;
 	}
-	set selecionado(selecionado: boolean) {
-		this.elemento.checked = selecionado;
-	}
-	set texto(texto: string) {
-		this.elemento.insertAdjacentHTML(
+
+	function adicionarTexto(texto: string) {
+		elemento.insertAdjacentHTML(
 			'beforebegin',
 			`<span class="gmValor">${texto}</span>`
 		);
 	}
-}
-
-class ErroElemento extends TypeError {
-	data: unknown;
-	constructor(obj: unknown) {
-		super('Parâmetro não corresponde ao elemento HTML "input[type=radio]".');
-		this.name = 'ErroElemento';
-		this.data = obj;
-	}
-}
-
-function verificarElementoÉRadio(
-	elemento: unknown
-): asserts elemento is HTMLInputElement {
-	if (
-		typeof elemento === 'object' &&
-		elemento &&
-		typeof (elemento as any).matches === 'function' &&
-		(elemento as any).matches('input[type="radio"]')
-	)
-		return;
-	throw new ErroElemento(elemento);
 }
