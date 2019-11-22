@@ -1,3 +1,4 @@
+import { debounce } from './debounce';
 import './Resultado.css';
 
 const CARACTERES_POR_SEGUNDO = 15;
@@ -49,7 +50,7 @@ export function Resultado(
 	function onFimTransição() {
 		if (mensagemInicialMostrada) return;
 		mensagemInicialMostrada = true;
-		win.addEventListener('resize', ajustarTamanhoFonte);
+		win.addEventListener('resize', debounce(150, ajustarTamanhoFonte));
 		ajustarTamanhoFonte();
 	}
 
