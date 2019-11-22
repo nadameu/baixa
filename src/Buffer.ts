@@ -1,6 +1,7 @@
 import { Digito } from './Digito';
+import { Nat } from './Nat';
 
-export function Buffer(maximo: number) {
+export function Buffer(maximo: Nat) {
 	let array: Digito[] = [];
 
 	return { pushDígito };
@@ -17,5 +18,5 @@ export function Buffer(maximo: number) {
 }
 
 function obterValor(array: Digito[]) {
-	return array.reduce((acc, x) => acc * 10 + x.valueOf(), 0);
+	return array.reduce((acc, x) => acc * 10 + x, 0) as Nat;
 }
