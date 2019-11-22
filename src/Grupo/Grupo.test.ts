@@ -17,6 +17,10 @@ describe('fromIds', () => {
 		expect(G.fromIds([], document)).toBeNull();
 	});
 
+	test('Elemento repetido', () => {
+		expect(G.fromIds(['ok', 'ok'], document)).toBeNull();
+	});
+
 	test('Um elemento inválido', () => {
 		expect(G.fromIds(['nao-eh-input'], document)).toBeNull();
 	});

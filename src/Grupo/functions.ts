@@ -3,6 +3,9 @@ import { R } from '../RadioInput';
 import { Grupo } from './defs';
 
 export function fromIds(ids: string[], doc = document): Grupo | null {
+	// Não pode haver elementos repetidos
+	if (new Set(ids).size !== ids.length) return null;
+
 	const radios = ids.map(id => R.fromId(id, doc));
 
 	// Todos os elementos do grupo devem ser obtidos
