@@ -14,7 +14,7 @@ export function main(
 	if (etapa === '1') {
 		etapa1({ win, doc });
 	} else if (etapa === '3') {
-		etapa3(win, storage);
+		etapa3({ win, storage });
 	} else {
 		throw new Error(`Ação desconhecida: '${acao}'.`);
 	}
