@@ -12,10 +12,10 @@ test('fromId', () => {
 </body></html>`);
 	const { document } = window;
 
-	expect(R.fromId('id-inexistente', document)).toEqual(null);
-	expect(R.fromId('nao-eh-input', document)).toEqual(null);
-	expect(R.fromId('nao-eh-radio', document)).toEqual(null);
-	expect(R.fromId('nao-possui-name', document)).toEqual(null);
-	expect(R.fromId('name-vazio', document)).toEqual(null);
+	expect(R.fromId('id-inexistente', document)).toBeNull();
+	expect(R.fromId('nao-eh-input', document)).toBeNull();
+	expect(R.fromId('nao-eh-radio', document)).toBeNull();
+	expect(R.fromId('nao-possui-name', document)).toBeNull();
+	expect(R.fromId('name-vazio', document)).toBeNull();
 	expect(R.fromId('ok', document)).toEqual(document.getElementById('ok'));
 });

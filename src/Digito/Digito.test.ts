@@ -14,12 +14,12 @@ test('fromNumber', () => {
 	expect(D.fromNumber(9)).toEqual(9);
 
 	// Inválidos
-	expect(D.fromNumber(10)).toEqual(null);
-	expect(D.fromNumber(-1)).toEqual(null);
-	expect(D.fromNumber(3.1)).toEqual(null);
-	expect(D.fromNumber(0.4)).toEqual(null);
-	expect(D.fromNumber(NaN)).toEqual(null);
-	expect(D.fromNumber(Infinity)).toEqual(null);
+	expect(D.fromNumber(10)).toBeNull();
+	expect(D.fromNumber(-1)).toBeNull();
+	expect(D.fromNumber(3.1)).toBeNull();
+	expect(D.fromNumber(0.4)).toBeNull();
+	expect(D.fromNumber(NaN)).toBeNull();
+	expect(D.fromNumber(Infinity)).toBeNull();
 });
 
 test('fromString', () => {
@@ -36,13 +36,13 @@ test('fromString', () => {
 	expect(D.fromString('9')).toEqual(9);
 
 	// Inválidos
-	expect(D.fromString('.')).toEqual(null);
-	expect(D.fromString(',')).toEqual(null);
-	expect(D.fromString('-')).toEqual(null);
-	expect(D.fromString('e')).toEqual(null);
-	expect(D.fromString('x')).toEqual(null);
-	expect(D.fromString('b')).toEqual(null);
-	expect(D.fromString('o')).toEqual(null);
-	expect(D.fromString('Z')).toEqual(null);
-	expect(D.fromString('#')).toEqual(null);
+	expect(D.fromString('.')).toBeNull();
+	expect(D.fromString(',')).toBeNull();
+	expect(D.fromString('-')).toBeNull();
+	expect(D.fromString('e')).toBeNull();
+	expect(D.fromString('x')).toBeNull();
+	expect(D.fromString('b')).toBeNull();
+	expect(D.fromString('o')).toBeNull();
+	expect(D.fromString('Z')).toBeNull();
+	expect(D.fromString('#')).toBeNull();
 });

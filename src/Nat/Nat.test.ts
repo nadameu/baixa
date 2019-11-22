@@ -7,9 +7,9 @@ test('fromNumber', () => {
 	expect(N.fromNumber(80)).toEqual(80);
 
 	// Inválidos
-	expect(N.fromNumber(0.5)).toEqual(null);
-	expect(N.fromNumber(-1)).toEqual(null);
-	expect(N.fromNumber(4.3)).toEqual(null);
-	expect(N.fromNumber(Infinity)).toEqual(null);
-	expect(N.fromNumber(NaN)).toEqual(null);
+	expect(N.fromNumber(0.5)).toBeNull();
+	expect(N.fromNumber(-1)).toBeNull();
+	expect(N.fromNumber(4.3)).toBeNull();
+	expect(N.fromNumber(Infinity)).toBeNull();
+	expect(N.fromNumber(NaN)).toBeNull();
 });

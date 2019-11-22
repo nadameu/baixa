@@ -1,7 +1,7 @@
 import { NEA } from '.';
 
 test('Vazio', () => {
-	expect(NEA.fromArray([])).toEqual(null);
+	expect(NEA.fromArray([])).toBeNull();
 });
 
 test('Não vazio', () => {
