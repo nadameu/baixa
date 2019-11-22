@@ -1,15 +1,21 @@
+import { Digito } from './Digito';
+
 export function Buffer(maximo: number) {
-	let array: string[] = [];
+	let array: Digito[] = [];
 
 	return { pushDígito };
 
-	function pushDígito(digito: string) {
+	function pushDígito(digito: Digito) {
 		array.push(digito);
-		let valor = parseInt(array.join(''));
+		let valor = obterValor(array);
 		while (valor > maximo) {
 			array = array.slice(1);
-			valor = parseInt(array.join(''));
+			valor = obterValor(array);
 		}
-		return isNaN(valor) ? null : valor;
+		return valor;
 	}
+}
+
+function obterValor(array: Digito[]) {
+	return array.reduce((acc, x) => acc * 10 + x.valueOf(), 0);
 }
