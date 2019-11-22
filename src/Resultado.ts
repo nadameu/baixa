@@ -13,7 +13,7 @@ export function Resultado(
 	const div = doc.createElement('div');
 	div.className = 'gmResultado';
 	div.textContent = mensagemInicial;
-	document.body.appendChild(div);
+	doc.body.appendChild(div);
 
 	let mensagemInicialMostrada = false;
 
