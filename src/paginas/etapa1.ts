@@ -1,7 +1,9 @@
 import { Buffer } from '../Buffer';
 import * as Constantes from '../constantes';
-import { Elementos } from '../Elementos';
+import { D } from '../Digito';
 import '../estilos.css';
+import { G, Grupo } from '../Grupo';
+import { Gs } from '../Grupos';
 import { LinkedList } from '../LinkedList';
 import { ocultarMenuLateral } from '../ocultarMenuLateral';
 import { query } from '../query';
@@ -67,16 +69,16 @@ export function etapa1(
 
 	const { buffer, valores } = (() => {
 		// Grupos
-		const jáTeveBaixaDefinitiva = Elementos.fromIds(['rdoItem0/1'], doc);
-		const condenação = Elementos.fromIds(
+		const jáTeveBaixaDefinitiva = G.fromIds(['rdoItem0/1'], doc);
+		const condenação = G.fromIds(
 			['rdoItem1/3', 'rdoItem1/1', 'rdoItem1/2'],
 			doc
 		);
-		const honoráriosCustas = Elementos.fromIds(
+		const honoráriosCustas = G.fromIds(
 			['rdoItem2/3', 'rdoItem2/1', 'rdoItem2/2'],
 			doc
 		);
-		const apensosLEF = Elementos.fromIds(['rdoItem3/2', 'rdoItem3/1'], doc);
+		const apensosLEF = G.fromIds(['rdoItem3/2', 'rdoItem3/1'], doc);
 		const gruposPossíveis = [
 			jáTeveBaixaDefinitiva,
 			condenação,
@@ -84,9 +86,12 @@ export function etapa1(
 			apensosLEF,
 		];
 		const gruposEncontrados = gruposPossíveis.filter(
-			grupo => grupo.length >= 1
+			(grupo): grupo is Grupo => grupo !== null
 		);
-		const valores = new LinkedList(gruposEncontrados);
+		const gruposValidos = Gs.fromArray(gruposEncontrados);
+		if (gruposValidos === null)
+			throw new Error('Erro ao processar os elementos da página.');
+		const valores = new LinkedList(gruposValidos);
 
 		const buffer = Buffer(valores.maximo);
 
@@ -97,11 +102,11 @@ export function etapa1(
 		ocultar();
 	});
 	doc.addEventListener('keypress', evt => {
-		if (/^\d$/.test(evt.key)) {
-			const valor = buffer.pushDígito(evt.key);
-			const valorValido = valor === null ? 0 : valor;
-			mostrarTexto(valorValido.toString());
-			valores.valor = valorValido;
+		const digito = D.fromString(evt.key);
+		if (digito !== null) {
+			const valor = buffer.pushDígito(digito);
+			mostrarTexto(valor.toString());
+			valores.valor = valor;
 		} else if (evt.keyCode === 13) {
 			baixar.click();
 		}
