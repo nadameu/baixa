@@ -1,5 +1,5 @@
 export function multiplicarAnteriores(xs: number[]): number[] {
-	return xs.map((_, i) => (i === 0 ? 1 : produto(xs.slice(0, i))));
+	return xs.map((_, i) => produto(xs.slice(0, i)));
 }
 
 function produto(xs: number[]) {
