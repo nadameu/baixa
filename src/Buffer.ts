@@ -1,16 +1,14 @@
-export class Buffer extends Array<string> {
-	máximo: number;
-	constructor(máximo: number) {
-		super();
-		this.máximo = máximo;
-	}
+export function Buffer(maximo: number) {
+	let array: string[] = [];
 
-	pushDígito(dígito: string): number | null {
-		Array.prototype.push.call(this, dígito);
-		let valor = parseInt(this.join(''));
-		while (valor > this.máximo) {
-			this.splice(0, 1);
-			valor = parseInt(this.join(''));
+	return { pushDígito };
+
+	function pushDígito(digito: string) {
+		array.push(digito);
+		let valor = parseInt(array.join(''));
+		while (valor > maximo) {
+			array = array.slice(1);
+			valor = parseInt(array.join(''));
 		}
 		return isNaN(valor) ? null : valor;
 	}

@@ -88,7 +88,7 @@ export function etapa1(
 		);
 		const valores = new LinkedList(gruposEncontrados);
 
-		const buffer = new Buffer(valores.maximo);
+		const buffer = Buffer(valores.maximo);
 
 		return { buffer, valores };
 	})();
