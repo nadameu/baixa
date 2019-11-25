@@ -1,4 +1,4 @@
-import { Digito } from './defs';
+import { Digito } from './index';
 
 export function fromNumber(number: number): Digito | null {
 	if (Number.isInteger(number) && number.toString().length === 1)

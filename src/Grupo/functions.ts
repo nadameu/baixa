@@ -1,15 +1,12 @@
-import { NEA } from '../NEArray';
-import { R, RadioInput } from '../RadioInput';
+import { NEArray } from '../NEArray';
+import { RadioInput } from '../RadioInput';
 import { Grupo, GrupoVazio } from './defs';
 
-export function fromIds(
-	ids: string[],
-	doc = document
-): Grupo | GrupoVazio | null {
+export function fromIds(ids: string[]): Grupo | GrupoVazio | null {
 	// Não pode haver elementos repetidos
 	if (new Set(ids).size !== ids.length) return null;
 
-	const radios = ids.map(id => R.fromId(id, doc));
+	const radios = ids.map(id => RadioInput.fromId(id));
 
 	if (todosNulos(radios)) {
 		// Grupos vazios são permitidos
@@ -20,7 +17,7 @@ export function fromIds(
 
 		// Todos os elementos devem ter o mesmo atributo "name"
 		const names = new Set(radios.map(({ name }) => name));
-		if (names.size === 1) return NEA.fromArray(radios) as Grupo | null;
+		if (names.size === 1) return NEArray.fromArray(radios) as Grupo | null;
 	}
 	return null;
 }

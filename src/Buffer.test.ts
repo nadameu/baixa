@@ -1,6 +1,6 @@
 import { Buffer } from './Buffer';
-import { D } from './Digito';
-import { N } from './Nat';
+import { Digito } from './Digito';
+import { Nat } from './Nat';
 
 const [
 	zero,
@@ -13,10 +13,10 @@ const [
 	sete,
 	oito,
 	nove,
-] = Array.from({ length: 10 }, (_, i) => D.fromNumber(i)!);
+] = Array.from({ length: 10 }, (_, i) => Digito.fromNumber(i)!);
 
 test('maximo 0', () => {
-	const buffer = Buffer(N.fromNumber(0)!);
+	const buffer = Buffer(Nat.fromNumber(0)!);
 	expect(buffer.pushDígito(zero)).toBe(0);
 	expect(buffer.pushDígito(um)).toBe(0);
 	expect(buffer.pushDígito(nove)).toBe(0);
@@ -24,7 +24,7 @@ test('maximo 0', () => {
 });
 
 test('maximo 1', () => {
-	const buffer = Buffer(N.fromNumber(1)!);
+	const buffer = Buffer(Nat.fromNumber(1)!);
 	expect(buffer.pushDígito(zero)).toBe(0);
 	expect(buffer.pushDígito(um)).toBe(1);
 	expect(buffer.pushDígito(um)).toBe(1);
@@ -34,7 +34,7 @@ test('maximo 1', () => {
 });
 
 test('maximo 2', () => {
-	const buffer = Buffer(N.fromNumber(2)!);
+	const buffer = Buffer(Nat.fromNumber(2)!);
 	expect(buffer.pushDígito(zero)).toBe(0);
 	expect(buffer.pushDígito(um)).toBe(1);
 	expect(buffer.pushDígito(dois)).toBe(2);
@@ -43,7 +43,7 @@ test('maximo 2', () => {
 });
 
 test('maximo 10', () => {
-	const buffer = Buffer(N.fromNumber(10)!);
+	const buffer = Buffer(Nat.fromNumber(10)!);
 	expect(buffer.pushDígito(zero)).toBe(0);
 	expect(buffer.pushDígito(um)).toBe(1);
 	expect(buffer.pushDígito(zero)).toBe(10);
@@ -53,7 +53,7 @@ test('maximo 10', () => {
 });
 
 test('maximo 16', () => {
-	const buffer = Buffer(N.fromNumber(16)!);
+	const buffer = Buffer(Nat.fromNumber(16)!);
 	expect(buffer.pushDígito(um)).toBe(1);
 	expect(buffer.pushDígito(seis)).toBe(16);
 	expect(buffer.pushDígito(um)).toBe(1);
@@ -61,7 +61,7 @@ test('maximo 16', () => {
 });
 
 test('maximo 99', () => {
-	const buffer = Buffer(N.fromNumber(99)!);
+	const buffer = Buffer(Nat.fromNumber(99)!);
 	expect(buffer.pushDígito(quatro)).toBe(4);
 	expect(buffer.pushDígito(nove)).toBe(49);
 	expect(buffer.pushDígito(cinco)).toBe(95);

@@ -1,13 +1,13 @@
 import { Buffer } from '../Buffer';
 import * as Constantes from '../constantes';
-import { D } from '../Digito';
+import { Digito } from '../Digito';
 import '../estilos.css';
-import { G, Grupo, GrupoVazio } from '../Grupo';
-import { Gs } from '../Grupos';
-import { Selecionador } from '../Selecionador';
+import { Grupo, GrupoVazio } from '../Grupo';
+import { Grupos } from '../Grupos';
 import { ocultarMenuLateral } from '../ocultarMenuLateral';
 import { query } from '../query';
 import { Resultado } from '../Resultado';
+import { Selecionador } from '../Selecionador';
 
 export function etapa1(
 	args: {
@@ -69,16 +69,16 @@ export function etapa1(
 
 	const { buffer, valores } = (() => {
 		// Grupos
-		const jáTeveBaixaDefinitiva = G.fromIds(['rdoItem0/1'], doc);
-		const condenação = G.fromIds(
+		const jáTeveBaixaDefinitiva = Grupo.fromIds(['rdoItem0/1'], doc);
+		const condenação = Grupo.fromIds(
 			['rdoItem1/3', 'rdoItem1/1', 'rdoItem1/2'],
 			doc
 		);
-		const honoráriosCustas = G.fromIds(
+		const honoráriosCustas = Grupo.fromIds(
 			['rdoItem2/3', 'rdoItem2/1', 'rdoItem2/2'],
 			doc
 		);
-		const apensosLEF = G.fromIds(['rdoItem3/2', 'rdoItem3/1'], doc);
+		const apensosLEF = Grupo.fromIds(['rdoItem3/2', 'rdoItem3/1'], doc);
 		const gruposPossíveis = [
 			jáTeveBaixaDefinitiva,
 			condenação,
@@ -88,7 +88,7 @@ export function etapa1(
 		const gruposEncontrados = gruposPossíveis.filter(
 			(grupo): grupo is Grupo | GrupoVazio => grupo !== null
 		);
-		const gruposValidos = Gs.fromArray(gruposEncontrados);
+		const gruposValidos = Grupos.fromArray(gruposEncontrados);
 		if (gruposValidos === null)
 			throw new Error('Erro ao processar os elementos da página.');
 		const valores = Selecionador(gruposValidos);
@@ -102,7 +102,7 @@ export function etapa1(
 		ocultar();
 	});
 	doc.addEventListener('keypress', evt => {
-		const digito = D.fromString(evt.key);
+		const digito = Digito.fromString(evt.key);
 		if (digito !== null) {
 			const valor = buffer.pushDígito(digito);
 			mostrarTexto(valor.toString());

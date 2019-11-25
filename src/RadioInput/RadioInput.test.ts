@@ -1,21 +1,22 @@
-import { JSDOM } from 'jsdom';
-import { R } from '.';
+/**
+ * @jest-environment jsdom
+ */
+
+import { RadioInput } from '.';
 
 test('fromId', () => {
-	const { window } = new JSDOM(`
-<!doctype html><html><head></head><body>
-	<div id="nao-eh-input"></div>
-	<input id="nao-eh-radio" />
-	<input id="nao-possui-name" type="radio" />
-	<input id="name-vazio" name="" type="radio" />
-	<input id="ok" type="radio" name="my-name" />
-</body></html>`);
-	const { document } = window;
+	document.body.innerHTML = `
+<div id="nao-eh-input"></div>
+<input id="nao-eh-radio" />
+<input id="nao-possui-name" type="radio" />
+<input id="name-vazio" name="" type="radio" />
+<input id="ok" type="radio" name="my-name" />
+`;
 
-	expect(R.fromId('id-inexistente', document)).toBeNull();
-	expect(R.fromId('nao-eh-input', document)).toBeNull();
-	expect(R.fromId('nao-eh-radio', document)).toBeNull();
-	expect(R.fromId('nao-possui-name', document)).toBeNull();
-	expect(R.fromId('name-vazio', document)).toBeNull();
-	expect(R.fromId('ok', document)).toEqual(document.getElementById('ok'));
+	expect(RadioInput.fromId('id-inexistente')).toBeNull();
+	expect(RadioInput.fromId('nao-eh-input')).toBeNull();
+	expect(RadioInput.fromId('nao-eh-radio')).toBeNull();
+	expect(RadioInput.fromId('nao-possui-name')).toBeNull();
+	expect(RadioInput.fromId('name-vazio')).toBeNull();
+	expect(RadioInput.fromId('ok')).toEqual(document.getElementById('ok'));
 });

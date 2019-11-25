@@ -1,5 +1,5 @@
 import { analisarGrupos } from './analisarGrupos';
-import { NEA } from './NEArray';
+import { NEArray } from './NEArray';
 
 test('Array vazio', () => {
 	expect(analisarGrupos([])).toEqual({ maximo: 0, grupos: [] });
@@ -11,7 +11,7 @@ test('teste 1', () => {
 		['honorarios-na', 'honorarios-sim', 'honorarios-nao'],
 		['apensos-nao', 'apensos-sim'],
 	];
-	expect(analisarGrupos(elementos.map(xs => NEA.fromArray(xs)!))).toEqual({
+	expect(analisarGrupos(elementos.map(xs => NEArray.fromArray(xs)!))).toEqual({
 		maximo: 17,
 		grupos: [
 			[
@@ -39,7 +39,7 @@ test('teste 2', () => {
 		['c-nao', 'c-sim'],
 		['d-na', 'd-sim', 'd-nao'],
 	];
-	expect(analisarGrupos(elementos.map(xs => NEA.fromArray(xs)!))).toEqual({
+	expect(analisarGrupos(elementos.map(xs => NEArray.fromArray(xs)!))).toEqual({
 		maximo: 95,
 		grupos: [
 			[
@@ -77,7 +77,7 @@ test('teste 3', () => {
 		['f-w', 'f-x', 'f-y'],
 		['g-w'],
 	];
-	expect(analisarGrupos(elementos.map(xs => NEA.fromArray(xs)!))).toEqual({
+	expect(analisarGrupos(elementos.map(xs => NEArray.fromArray(xs)!))).toEqual({
 		maximo: 23,
 		grupos: [
 			[{ valor: 0, elemento: 'a-w' }],

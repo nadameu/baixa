@@ -1,14 +1,14 @@
-import { JSDOM } from 'jsdom';
+/**
+ * @jest-environment jsdom
+ */
+
 import { Elemento } from './Elemento';
-import { R } from './RadioInput';
+import { RadioInput } from './RadioInput';
 
 test('Elemento', () => {
-	const { window } = new JSDOM(
-		`<!doctype html><html><head></head><body><input id="zero" type="radio" name="meu-nome"/></body></html>`
-	);
-	const { document } = window;
+	document.body.innerHTML = '<input id="zero" type="radio" name="meu-nome"/>';
 
-	const zero = R.fromId('zero', document);
+	const zero = RadioInput.fromId('zero');
 	if (zero === null) throw new Error('Não é um RadioInput válido.');
 
 	const elemento = Elemento(zero);

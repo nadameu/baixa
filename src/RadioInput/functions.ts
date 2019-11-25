@@ -1,7 +1,7 @@
 import { RadioInput } from './defs';
 
-export function fromId(id: string, doc: Document): RadioInput | null {
-	const element = doc.getElementById(id);
+export function fromId(id: string): RadioInput | null {
+	const element = document.getElementById(id);
 	return element === null ? null : fromElement(element);
 }
 
