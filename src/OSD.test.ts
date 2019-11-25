@@ -2,11 +2,11 @@
  * @jest-environment jsdom
  */
 
-import { Resultado } from './Resultado';
+import { OSD } from './OSD';
 
 test('Resultado', () => {
 	document.body.innerHTML = '<div>Elemento antes do resultado</div>';
-	const resultado = Resultado('"Mensagem inicial"');
+	const resultado = OSD('"Mensagem inicial"');
 	const div = document.querySelector('.gmResultado')!;
 
 	expect(document.head).toMatchInlineSnapshot(`

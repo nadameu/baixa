@@ -6,7 +6,7 @@ const CARACTERES_POR_SEGUNDO = 15;
 const MILISSEGUNDOS_POR_CARACTERE = 1000 / CARACTERES_POR_SEGUNDO;
 const ESPERA_MINIMA = 150;
 
-export function Resultado(
+export function OSD(
 	mensagemInicial: string,
 	doc = document,
 	win = doc.defaultView!
