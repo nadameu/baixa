@@ -3,7 +3,7 @@ import { debounce } from './debounce';
 test('debounce', () => {
 	jest.useFakeTimers();
 	const fn = jest.fn();
-	const debounced = debounce(100, fn, { clearTimeout, setTimeout });
+	const debounced = debounce(100, fn);
 
 	debounced();
 
