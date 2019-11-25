@@ -9,25 +9,12 @@ import { query } from '../query';
 import { Resultado } from '../Resultado';
 import { Selecionador } from '../Selecionador';
 
-export function etapa1(
-	args: {
-		win?: Window;
-		doc?: HTMLDocument;
-		baixar?: HTMLInputElement;
-		pendencias?: HTMLElement;
-		wrapper?: HTMLElement;
-		sidebar?: HTMLElement;
-	} = {}
-) {
-	const {
-		win = window,
-		doc = win.document,
-		baixar = query('#sbmBaixa', doc),
-		pendencias = query('#fldPendencias', doc),
-		wrapper = query('#wrapper', doc),
-		sidebar = query('#sidebar-wrapper', doc),
-	} = args;
-
+export function etapa1({
+	baixar = query<HTMLInputElement>('input#sbmBaixa'),
+	pendencias = query('#fldPendencias'),
+	wrapper = query('#wrapper'),
+	sidebar = query('#sidebar-wrapper'),
+} = {}) {
 	{
 		// Menu lateral
 		ocultarMenuLateral(wrapper, sidebar);
@@ -39,8 +26,8 @@ export function etapa1(
 			'beforebegin',
 			'<label class="btn btn-default gmLabel"><input id="gmFechar" type="checkbox">&nbsp;<label for="gmFechar">Fechar esta janela e a janela/aba do processo após baixar</label></label>'
 		);
-		const fechar = doc.querySelector('#gmFechar') as HTMLInputElement;
-		const fecharLabel = doc.querySelector('.gmLabel') as HTMLLabelElement;
+		const fechar = document.querySelector('#gmFechar') as HTMLInputElement;
+		const fecharLabel = document.querySelector('.gmLabel') as HTMLLabelElement;
 		const onFecharChange = () => {
 			const selecionado = fechar.checked;
 			localStorage.setItem(
@@ -63,22 +50,23 @@ export function etapa1(
 
 	// Mostrador na tela
 	const { mostrarTexto, ocultar } = Resultado(
-		'Digite a soma das opções que deseja selecionar. Pressione ENTER para confirmar.',
-		doc
+		'Digite a soma das opções que deseja selecionar. Pressione ENTER para confirmar.'
 	);
 
 	const { buffer, valores } = (() => {
 		// Grupos
-		const jáTeveBaixaDefinitiva = Grupo.fromIds(['rdoItem0/1'], doc);
-		const condenação = Grupo.fromIds(
-			['rdoItem1/3', 'rdoItem1/1', 'rdoItem1/2'],
-			doc
-		);
-		const honoráriosCustas = Grupo.fromIds(
-			['rdoItem2/3', 'rdoItem2/1', 'rdoItem2/2'],
-			doc
-		);
-		const apensosLEF = Grupo.fromIds(['rdoItem3/2', 'rdoItem3/1'], doc);
+		const jáTeveBaixaDefinitiva = Grupo.fromIds(['rdoItem0/1']);
+		const condenação = Grupo.fromIds([
+			'rdoItem1/3',
+			'rdoItem1/1',
+			'rdoItem1/2',
+		]);
+		const honoráriosCustas = Grupo.fromIds([
+			'rdoItem2/3',
+			'rdoItem2/1',
+			'rdoItem2/2',
+		]);
+		const apensosLEF = Grupo.fromIds(['rdoItem3/2', 'rdoItem3/1']);
 		const gruposPossíveis = [
 			jáTeveBaixaDefinitiva,
 			condenação,
@@ -98,10 +86,10 @@ export function etapa1(
 		return { buffer, valores };
 	})();
 
-	doc.addEventListener('click', () => {
+	document.addEventListener('click', () => {
 		ocultar();
 	});
-	doc.addEventListener('keypress', evt => {
+	document.addEventListener('keypress', evt => {
 		const digito = Digito.fromString(evt.key);
 		if (digito !== null) {
 			const valor = buffer.pushDígito(digito);

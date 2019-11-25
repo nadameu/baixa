@@ -1,16 +1,12 @@
 import { etapa1 } from './paginas/etapa1';
 import { etapa3 } from './paginas/etapa3';
 
-export function main(
-	win = window,
-	doc = win.document,
-	storage = win.localStorage
-) {
-	const { acao, etapa } = extrairDadosUrl(doc.location.href);
+export function main() {
+	const { acao, etapa } = extrairDadosUrl(document.location.href);
 	if (etapa === '1') {
-		etapa1({ win, doc });
+		etapa1();
 	} else if (etapa === '3') {
-		etapa3({ win, storage });
+		etapa3();
 	} else {
 		throw new Error(`Ação desconhecida: '${acao}'.`);
 	}
