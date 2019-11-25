@@ -1,6 +1,5 @@
 import path from 'path';
 import resolve from 'rollup-plugin-node-resolve';
-import postcss from 'rollup-plugin-postcss';
 import serve from 'rollup-plugin-serve';
 import { string } from 'rollup-plugin-string';
 import { terser } from 'rollup-plugin-terser';
@@ -10,8 +9,6 @@ import data from './metadata';
 import pkg from './package.json';
 
 const IS_SERVE = process.env.BUILD === 'serve';
-const IS_DEVELOPMENT = IS_SERVE || process.env.BUILD === 'development';
-const IS_PRODUCTION = !IS_DEVELOPMENT;
 
 export default {
 	input: './src/index.ts',
@@ -25,20 +22,21 @@ export default {
 
 		terser({
 			ecma: 8,
-			compress: IS_PRODUCTION && {
+			toplevel: true,
+			compress: {
 				passes: 5,
+				unsafe: true,
 				unsafe_arrows: true,
+				unsafe_methods: true,
 			},
-			mangle: IS_PRODUCTION,
+			mangle: false,
 			output: {
 				preamble: generateBanner(),
-				beautify: IS_DEVELOPMENT,
 			},
-			toplevel: true,
 		}),
 
 		string({
-			include: ['**/*.html'],
+			include: ['**/*.html', '**/*.css'],
 		}),
 
 		IS_SERVE &&
@@ -47,7 +45,6 @@ export default {
 				openPage: `/${pkg.name}.user.js`,
 				contentBase: 'dist',
 			}),
-		postcss(),
 	],
 
 	inlineDynamicImports: true,

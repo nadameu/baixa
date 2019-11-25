@@ -8,9 +8,8 @@
 	"scripts": {
 		"prebuild": "rimraf ./.rpt2_cache/ ./dist",
 		"build": "rollup -c",
-		"build:dev": "npm run build -- --environment BUILD:development",
 		"build:serve": "npm run build -- --environment BUILD:serve --watch",
-		"build:watch": "npm run build:dev -- --watch",
+		"build:watch": "npm run build -- --watch",
 		"start": "npm run build:serve",
 		"test": "jest",
 		"type-check": "tsc",
@@ -26,7 +25,6 @@
 		"rimraf": "^3.0.0",
 		"rollup": "^1.27.0",
 		"rollup-plugin-node-resolve": "^5.2.0",
-		"rollup-plugin-postcss": "^2.0.3",
 		"rollup-plugin-serve": "^1.0.1",
 		"rollup-plugin-string": "^3.0.0",
 		"rollup-plugin-terser": "^5.1.2",
