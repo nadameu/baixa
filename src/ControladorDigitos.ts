@@ -1,7 +1,7 @@
 import { Digito } from './Digito';
 import { Nat } from './Nat';
 
-export function Buffer(maximo: Nat) {
+export function ControladorDigitos(maximo: Nat) {
 	let array: Digito[] = [];
 
 	return { pushDígito };
