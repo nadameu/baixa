@@ -2,14 +2,20 @@
  * @jest-environment jsdom
  */
 
-jest.mock('./Resultado.css');
-
 import { Resultado } from './Resultado';
 
 test('Resultado', () => {
 	document.body.innerHTML = '<div>Elemento antes do resultado</div>';
 	const resultado = Resultado('"Mensagem inicial"');
 	const div = document.querySelector('.gmResultado')!;
+
+	expect(document.head).toMatchInlineSnapshot(`
+		<head>
+		  <style>
+		    /* THIS IS A MOCK CSS MODULE */
+		  </style>
+		</head>
+	`);
 
 	expect(document.body).toMatchInlineSnapshot(`
 		<body>
