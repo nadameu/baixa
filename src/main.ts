@@ -1,10 +1,15 @@
 import { etapa1 } from './paginas/etapa1';
 import { etapa3 } from './paginas/etapa3';
+import { query } from './query';
 
 export function main() {
 	const { acao, etapa } = extrairDadosUrl(document.location.href);
 	if (etapa === '1') {
-		etapa1();
+		const baixar = query<HTMLInputElement>('input#sbmBaixa');
+		const pendencias = query('#fldPendencias');
+		const wrapper = query('#wrapper');
+		const sidebar = query('#sidebar-wrapper');
+		etapa1({ baixar, pendencias, wrapper, sidebar });
 	} else if (etapa === '3') {
 		etapa3();
 	} else {
