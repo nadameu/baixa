@@ -6,7 +6,7 @@ export function fromIds(ids: string[]): Grupo | GrupoVazio | null {
 	// Não pode haver elementos repetidos
 	if (new Set(ids).size !== ids.length) return null;
 
-	const radios = ids.map(id => RadioInput.fromId(id));
+	const radios = ids.map(RadioInput.fromId);
 
 	if (todosNulos(radios)) {
 		// Grupos vazios são permitidos
