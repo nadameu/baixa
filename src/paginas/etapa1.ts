@@ -45,7 +45,7 @@ export function etapa1({
 	});
 }
 
-function adicionarBotaoFecharAposBaixar(pendencias: HTMLElement) {
+export function adicionarBotaoFecharAposBaixar(pendencias: HTMLElement) {
 	pendencias.insertAdjacentHTML(
 		'beforebegin',
 		'<label class="btn btn-default gmLabel"><input id="gmFechar" type="checkbox">&nbsp;<label for="gmFechar">Fechar esta janela e a janela/aba do processo após baixar</label></label>'
