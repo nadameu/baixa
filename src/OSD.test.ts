@@ -5,83 +5,67 @@
 import { OSD } from './OSD';
 
 test('Resultado', () => {
+	Object.defineProperty(document.documentElement, 'clientHeight', {
+		get: () => 1002,
+	});
 	document.body.innerHTML = '<div>Elemento antes do resultado</div>';
+
 	const resultado = OSD('"Mensagem inicial"');
-	const div = document.querySelector('.gmResultado')!;
+	const div = document.querySelector('.gmResultado') as HTMLDivElement;
 
-	expect(document.head).toMatchInlineSnapshot(`
-		<head>
-		  <style>
-		    /* THIS IS A MOCK CSS MODULE */
-		  </style>
-		</head>
-	`);
-
-	expect(document.body).toMatchInlineSnapshot(`
-		<body>
-		  <div>
-		    Elemento antes do resultado
-		  </div>
-		  <div
-		    class="gmResultado"
-		    style="transition: opacity 500ms linear 1200ms; opacity: 0;"
-		  >
-		    "Mensagem inicial"
-		  </div>
-		</body>
+	expect(document.documentElement).toMatchInlineSnapshot(`
+		<html>
+		  <head>
+		    <style>
+		      /* THIS IS A MOCK CSS MODULE */
+		    </style>
+		  </head>
+		  <body>
+		    <div>
+		      Elemento antes do resultado
+		    </div>
+		    <div
+		      class="gmResultado"
+		      style="transition: opacity 500ms linear 1200ms; opacity: 0;"
+		    >
+		      "Mensagem inicial"
+		    </div>
+		  </body>
+		</html>
 	`);
 
 	resultado.ocultar();
 	div.dispatchEvent(new Event('transitioncancel'));
 
-	expect(document.body).toMatchInlineSnapshot(`
-		<body>
-		  <div>
-		    Elemento antes do resultado
-		  </div>
-		  <div
-		    class="gmResultado"
-		    style="opacity: 0; font-size: 0px;"
-		  >
-		    "Mensagem inicial"
-		  </div>
-		</body>
-	`);
+	expectStylesOf(div).toContain({ opacity: '0', fontSize: '334px' });
 
 	resultado.mostrarTexto('45');
 
-	expect(document.body).toMatchInlineSnapshot(`
-		<body>
-		  <div>
-		    Elemento antes do resultado
-		  </div>
-		  <div
-		    class="gmResultado"
-		    style="font-size: 0px; transition: opacity 500ms linear 150ms; opacity: 0;"
-		  >
-		    45
-		  </div>
-		</body>
-	`);
-
-	Object.defineProperty(document.documentElement, 'clientHeight', {
-		get() {
-			return 1002;
-		},
+	expectStylesOf(div).toContain({
+		opacity: '0',
+		transition: 'opacity 500ms linear 150ms',
+		fontSize: '334px',
 	});
-	div.dispatchEvent(new window.Event('transitionend'));
+	expect(div.textContent).toBe('45');
 
-	expect(document.body).toMatchInlineSnapshot(`
-		<body>
-		  <div>
-		    Elemento antes do resultado
-		  </div>
-		  <div
-		    class="gmResultado"
-		    style="font-size: 0px; transition: opacity 500ms linear 150ms; opacity: 0;"
-		  >
-		    45
-		  </div>
-		</body>
-	`);
+	div.dispatchEvent(new Event('transitionend'));
+
+	expectStylesOf(div).toContain({
+		opacity: '0',
+		transition: 'opacity 500ms linear 150ms',
+		fontSize: '334px',
+	});
 });
+
+function expectStylesOf(actual: HTMLElement) {
+	return {
+		toContain(expected: Partial<CSSStyleDeclaration>) {
+			const values: Record<string, string> = {};
+			for (const key of Object.keys(expected) as Array<
+				keyof CSSStyleDeclaration
+			>)
+				values[key] = actual.style[key];
+			expect(values).toEqual(expected);
+		},
+	};
+}
