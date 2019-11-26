@@ -4,8 +4,7 @@ import serve from 'rollup-plugin-serve';
 import { string } from 'rollup-plugin-string';
 import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript';
-import { stringify } from 'userscript-meta';
-import data from './metadata';
+import { generateBanner } from './generateBanner';
 import pkg from './package.json';
 
 const IS_SERVE = process.env.BUILD === 'serve';
@@ -60,14 +59,3 @@ export default {
 		},
 	],
 };
-
-function generateBanner() {
-	const { name, version, description, author } = pkg;
-	return stringify({
-		name,
-		...(description ? { 'name:pt-BR': description } : {}),
-		version,
-		author,
-		...data,
-	});
-}
