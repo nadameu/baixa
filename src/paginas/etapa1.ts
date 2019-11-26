@@ -5,6 +5,7 @@ import { Digito } from '../Digito';
 import estilos from '../estilos.css';
 import { Grupo, GrupoVazio } from '../Grupo';
 import { Grupos } from '../Grupos';
+import { Nat } from '../Nat';
 import { ocultarMenuLateral } from '../ocultarMenuLateral';
 import { OSD } from '../OSD';
 import { Selecionador } from '../Selecionador';
@@ -32,17 +33,39 @@ export function etapa1({
 
 	const controladorDigitos = ControladorDigitos(selecionador.maximo);
 
-	document.addEventListener('click', () => osd.ocultar());
-	document.addEventListener('keypress', evt => {
+	document.addEventListener('click', osd.ocultar);
+	document.addEventListener(
+		'keypress',
+		onKeyPress({
+			baixar,
+			mostrarTexto: osd.mostrarTexto,
+			pushDígito: controladorDigitos.pushDígito,
+			setValor: selecionador.setValor,
+		})
+	);
+}
+
+export function onKeyPress({
+	pushDígito,
+	mostrarTexto,
+	setValor,
+	baixar,
+}: {
+	pushDígito: (_: Digito) => Nat;
+	mostrarTexto: (_: string) => void;
+	setValor: (_: Nat) => void;
+	baixar: HTMLElement;
+}) {
+	return (evt: KeyboardEvent) => {
 		const digito = Digito.fromString(evt.key);
 		if (digito !== null) {
-			const valor = controladorDigitos.pushDígito(digito);
-			osd.mostrarTexto(valor.toString());
-			selecionador.setValor(valor);
+			const valor = pushDígito(digito);
+			mostrarTexto(valor.toString());
+			setValor(valor);
 		} else if (evt.keyCode === 13) {
 			baixar.click();
 		}
-	});
+	};
 }
 
 export function adicionarBotaoFecharAposBaixar(pendencias: HTMLElement) {

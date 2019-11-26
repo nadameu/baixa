@@ -3,7 +3,13 @@
  */
 
 import * as Constantes from '../constantes';
-import { adicionarBotaoFecharAposBaixar, criarSelecionador } from './etapa1';
+import { Digito } from '../Digito';
+import { Nat } from '../Nat';
+import {
+	adicionarBotaoFecharAposBaixar,
+	criarSelecionador,
+	onKeyPress,
+} from './etapa1';
 
 describe('adicionarBotaoFecharAposBaixar', () => {
 	test('Snapshot', () => {
@@ -101,3 +107,41 @@ function criarElementos(idGrupo: number, idItens: number[]) {
 		document.body.appendChild(radio);
 	});
 }
+
+describe('onKeyPress', () => {
+	const pushDígito = (() => {
+		let valor = Nat.fromNumber(0)!;
+		return jest.fn(push);
+		function push(x: Digito) {
+			valor = Nat.fromNumber((valor % 10) * 10 + x)!;
+			return valor;
+		}
+	})();
+	const mostrarTexto = jest.fn();
+	const setValor = jest.fn<void, [Nat]>();
+	document.body.innerHTML = '<button id="button"></button>';
+	const baixar = document.getElementById('button') as HTMLButtonElement;
+	Object.defineProperty(baixar, 'click', { value: jest.fn() });
+	const handler = onKeyPress({ baixar, mostrarTexto, pushDígito, setValor });
+
+	test('Dígitos', () => {
+		handler({ key: '?' } as KeyboardEvent);
+		handler({ key: '0' } as KeyboardEvent);
+		handler({ key: '8' } as KeyboardEvent);
+		handler({ key: '?' } as KeyboardEvent);
+		handler({ key: '7' } as KeyboardEvent);
+		handler({ key: '?' } as KeyboardEvent);
+		handler({ key: '3' } as KeyboardEvent);
+		handler({ key: '?' } as KeyboardEvent);
+
+		expect(pushDígito.mock.calls).toEqual([[0], [8], [7], [3]]);
+		expect(mostrarTexto.mock.calls).toEqual([['0'], ['8'], ['87'], ['73']]);
+		expect(setValor.mock.calls).toEqual([[0], [8], [87], [73]]);
+	});
+
+	test('Enter', () => {
+		handler({ keyCode: 13 } as KeyboardEvent);
+
+		expect(baixar.click).toHaveBeenCalled();
+	});
+});
