@@ -13,29 +13,35 @@ describe('fromArray', () => {
 <input id="b-1" type="radio" name="grupo-b" value="1" />
 `;
 
-	test('Vazio', () => {
-		const vazio: Grupo[] = [];
-		expect(Grupos.fromArray(vazio)).toEqual(vazio);
+	describe('Inválidos', () => {
+		test('Elementos do mesmo grupo em índices diferentes do array', () => {
+			const x = Grupo.fromIds(['a-0']) as Grupo;
+			const y = Grupo.fromIds(['a-1']) as Grupo;
+			const z = Grupos.fromArray([x, y]);
+			expect(z).toBeNull();
+		});
 	});
 
-	test('Elementos do mesmo grupo em índices diferentes do array', () => {
-		const x = Grupo.fromIds(['a-0']);
-		const y = Grupo.fromIds(['a-1']);
-		const z = Grupos.fromArray([x, y].filter((x): x is Grupo => x !== null));
-		expect(z).toBeNull();
-	});
+	describe('Válidos', () => {
+		test('Nenhum grupo', () => {
+			const vazio: Grupo[] = [];
+			expect(Grupos.fromArray(vazio)).toEqual(vazio);
+		});
 
-	test('Grupos válidos', () => {
-		const a = Grupo.fromIds(['a-0', 'a-1']) as Grupo;
-		const b = Grupo.fromIds(['b-0', 'b-1']) as Grupo;
-		const grupos = [a, b];
-		expect(Grupos.fromArray(grupos)).toEqual(grupos);
-	});
+		test('Grupos válidos', () => {
+			const a = Grupo.fromIds(['a-0', 'a-1']) as Grupo;
+			const b = Grupo.fromIds(['b-0', 'b-1']) as Grupo;
+			const grupos = [a, b];
+			expect(Grupos.fromArray(grupos)).toEqual(grupos);
+		});
 
-	test('Um grupo vazio', () => {
-		const vazio = Grupo.fromIds([]) as GrupoVazio;
-		const b = Grupo.fromIds(['b-0', 'b-1']) as Grupo;
-		const grupos = [vazio, b];
-		expect(Grupos.fromArray(grupos)).toEqual(grupos.filter(g => g.length > 0));
+		test('Um grupo vazio', () => {
+			const vazio = Grupo.fromIds([]) as GrupoVazio;
+			const b = Grupo.fromIds(['b-0', 'b-1']) as Grupo;
+			const grupos = [vazio, b];
+			expect(Grupos.fromArray(grupos)).toEqual(
+				grupos.filter(g => g.length > 0)
+			);
+		});
 	});
 });
