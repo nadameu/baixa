@@ -3,7 +3,7 @@
  */
 
 import * as Constantes from '../constantes';
-import { adicionarBotaoFecharAposBaixar } from './etapa1';
+import { adicionarBotaoFecharAposBaixar, criarSelecionador } from './etapa1';
 
 describe('adicionarBotaoFecharAposBaixar', () => {
 	test('Snapshot', () => {
@@ -70,3 +70,34 @@ describe('adicionarBotaoFecharAposBaixar', () => {
 		);
 	}
 });
+
+describe('criarSelecionador', () => {
+	test('Válido (alguns grupos encontrados)', () => {
+		document.body.innerHTML = '';
+		criarElementos(1, [1, 2, 3]);
+		criarElementos(2, [1, 2, 3]);
+		expect(criarSelecionador().maximo).toBe(8);
+	});
+
+	test('Válido (nenhum grupo encontrado)', () => {
+		document.body.innerHTML = '';
+		expect(criarSelecionador().maximo).toBe(0);
+	});
+
+	test('Inválido (um grupo com elemento faltante)', () => {
+		document.body.innerHTML = '';
+		criarElementos(1, [1, 2, 3]);
+		criarElementos(2, [1, 3]);
+		expect(criarSelecionador).toThrow();
+	});
+});
+
+function criarElementos(idGrupo: number, idItens: number[]) {
+	idItens.map(idItem => {
+		const radio = document.createElement('input');
+		radio.type = 'radio';
+		radio.id = `rdoItem${idGrupo}/${idItem}`;
+		radio.name = `grupo${idGrupo}`;
+		document.body.appendChild(radio);
+	});
+}

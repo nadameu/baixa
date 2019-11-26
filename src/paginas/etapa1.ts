@@ -73,7 +73,7 @@ export function adicionarBotaoFecharAposBaixar(pendencias: HTMLElement) {
 	}
 }
 
-function criarSelecionador() {
+export function criarSelecionador() {
 	// Grupos
 	const jáTeveBaixaDefinitiva = Grupo.fromIds(['rdoItem0/1']);
 	const condenação = Grupo.fromIds(['rdoItem1/3', 'rdoItem1/1', 'rdoItem1/2']);
@@ -89,11 +89,15 @@ function criarSelecionador() {
 		honoráriosCustas,
 		apensosLEF,
 	];
-	const gruposEncontrados = gruposPossíveis.filter(
-		(grupo): grupo is Grupo | GrupoVazio => grupo !== null
-	);
-	const gruposValidos = Grupos.fromArray(gruposEncontrados);
-	if (gruposValidos === null)
-		throw new Error('Erro ao processar os elementos da página.');
-	return Selecionador(gruposValidos);
+	if (somenteGruposVálidos(gruposPossíveis)) {
+		const gruposVálidos = Grupos.fromArray(gruposPossíveis);
+		if (gruposVálidos !== null) return Selecionador(gruposVálidos);
+	}
+	throw new Error('Erro ao processar os elementos da página.');
+}
+
+function somenteGruposVálidos(
+	grupos: Array<Grupo | GrupoVazio | null>
+): grupos is Array<Grupo | GrupoVazio> {
+	return grupos.every(g => g !== null);
 }
