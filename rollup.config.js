@@ -22,15 +22,18 @@ export default {
 
 		terser({
 			ecma: 8,
+			module: true,
 			toplevel: true,
 			compress: {
 				passes: 5,
+				sequences: false,
 				unsafe: true,
 				unsafe_arrows: true,
 				unsafe_methods: true,
 			},
 			mangle: false,
 			output: {
+				beautify: true,
 				preamble: generateBanner(),
 			},
 		}),
@@ -53,6 +56,7 @@ export default {
 		{
 			file: path.resolve(__dirname, 'dist', `${pkg.name}.user.js`),
 			format: 'es',
+			preferConst: true,
 		},
 	],
 };
