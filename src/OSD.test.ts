@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { OSD } from './OSD';
 
 test('Resultado', () => {

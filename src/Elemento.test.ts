@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { Elemento } from './Elemento';
 import { RadioInput } from './RadioInput';
 

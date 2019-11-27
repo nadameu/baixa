@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import * as Constantes from '../constantes';
 import { Digito } from '../Digito';
 import { Nat } from '../Nat';

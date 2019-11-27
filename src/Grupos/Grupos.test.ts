@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { Grupos } from '.';
 import { Grupo, GrupoVazio } from '../Grupo';
 

@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { Grupo } from './Grupo';
 import { Grupos } from './Grupos';
 import { Selecionador } from './Selecionador';

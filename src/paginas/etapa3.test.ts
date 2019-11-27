@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import * as Constantes from '../constantes';
 import { etapa3 } from './etapa3';
 

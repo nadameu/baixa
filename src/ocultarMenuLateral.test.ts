@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { ocultarMenuLateral } from './ocultarMenuLateral';
 
 test('ocultarMenuLateral', () => {

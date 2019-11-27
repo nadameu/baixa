@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { query } from './query';
 
 test('Elemento existente', () => {

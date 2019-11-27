@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { adicionarEstilos } from './adicionarEstilos';
 
 test('adicionarEstilos', () => {

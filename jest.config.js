@@ -1,6 +1,6 @@
 module.exports = {
 	preset: 'ts-jest',
-	testEnvironment: 'node',
+	testEnvironment: 'jsdom',
 	collectCoverage: true,
 	collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
 	transform: { '\\.[jt]sx?$': ['ts-jest'] },
