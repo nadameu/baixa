@@ -1,6 +1,6 @@
 import { adicionarEstilos } from './adicionarEstilos';
 import { debounce } from './debounce';
-import estilos from './Resultado.css';
+import estilos from './OSD.css';
 
 const CARACTERES_POR_SEGUNDO = 15;
 const MILISSEGUNDOS_POR_CARACTERE = 1000 / CARACTERES_POR_SEGUNDO;
