@@ -19,21 +19,21 @@
 	"dependencies": {},
 	"devDependencies": {
 		"@types/intl": "^1.2.0",
-		"@types/jest": "^24.9.1",
-		"@types/jsdom": "^12.2.4",
+		"@types/jest": "^27.4.1",
+		"@types/jsdom": "^16.2.14",
 		"esm": "^3.2.25",
 		"jest": "^27.5.1",
-		"prettier": "^1.19.1",
+		"prettier": "^2.6.2",
 		"rimraf": "^3.0.2",
-		"rollup": "^2.0.0",
+		"rollup": "^2.70.1",
 		"rollup-plugin-node-resolve": "^5.2.0",
 		"rollup-plugin-serve": "^1.1.0",
 		"rollup-plugin-string": "^3.0.0",
 		"rollup-plugin-terser": "^7.0.2",
 		"rollup-plugin-typescript": "^1.0.1",
 		"ts-jest": "^27.1.4",
-		"tslib": "^1.14.1",
-		"typescript": "^3.9.10",
+		"tslib": "^2.3.1",
+		"typescript": "^4.6.3",
 		"userscript-meta": "^1.0.1"
 	}
 }
