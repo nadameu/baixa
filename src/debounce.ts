@@ -4,7 +4,7 @@ export const debounce = <args extends any[]>(
 ) => {
 	let timer: number;
 	return (...args: args) => {
-		clearTimeout(timer);
-		timer = setTimeout(callback, ms, ...args);
+		window.clearTimeout(timer);
+		timer = window.setTimeout(callback, ms, ...args);
 	};
 };
