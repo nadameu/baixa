@@ -56,11 +56,9 @@ test('Resultado', () => {
 function expectStylesOf(actual: HTMLElement) {
 	return {
 		toContain(expected: Partial<CSSStyleDeclaration>) {
-			const values: Record<string, string> = {};
-			for (const key of Object.keys(expected) as Array<
-				keyof CSSStyleDeclaration
-			>)
-				values[key] = actual.style[key];
+			const values: Record<string, any> = {};
+			for (const key of Object.keys(expected))
+				values[key] = actual.style[key as keyof CSSStyleDeclaration];
 			expect(values).toEqual(expected);
 		},
 	};

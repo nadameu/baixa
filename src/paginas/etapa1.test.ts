@@ -61,12 +61,12 @@ describe('adicionarBotaoFecharAposBaixar', () => {
 		adicionar();
 		const fechar = document.getElementById('gmFechar')!;
 
-		fechar.dispatchEvent(new Event('click'));
+		fechar.click();
 		expect(localStorage.getItem(Constantes.FECHAR_APOS_BAIXAR)).toEqual(
 			clicado1vez ? 'S' : 'N'
 		);
 
-		fechar.dispatchEvent(new Event('click'));
+		fechar.click();
 		expect(localStorage.getItem(Constantes.FECHAR_APOS_BAIXAR)).toEqual(
 			clicado2vezes ? 'S' : 'N'
 		);
