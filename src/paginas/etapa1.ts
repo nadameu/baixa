@@ -6,23 +6,17 @@ import estilos from '../estilos.css';
 import { Grupo, GrupoVazio } from '../Grupo';
 import { Grupos } from '../Grupos';
 import { Nat } from '../Nat';
-import { ocultarMenuLateral } from '../ocultarMenuLateral';
 import { OSD } from '../OSD';
 import { Selecionador } from '../Selecionador';
 
 export function etapa1({
 	baixar,
 	pendencias,
-	wrapper,
-	sidebar,
 }: {
 	baixar: HTMLInputElement;
 	pendencias: HTMLElement;
-	wrapper: HTMLElement;
-	sidebar: HTMLElement;
 }) {
 	adicionarEstilos(estilos);
-	ocultarMenuLateral(wrapper, sidebar);
 	adicionarBotaoFecharAposBaixar(pendencias);
 
 	const osd = OSD(

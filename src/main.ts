@@ -7,9 +7,7 @@ export function main() {
 	if (etapa === '1') {
 		const baixar = query<HTMLInputElement>('input#sbmBaixa');
 		const pendencias = query('#fldPendencias');
-		const wrapper = query('#wrapper');
-		const sidebar = query('#sidebar-wrapper');
-		etapa1({ baixar, pendencias, wrapper, sidebar });
+		etapa1({ baixar, pendencias });
 	} else if (etapa === '3') {
 		etapa3();
 	} else {
