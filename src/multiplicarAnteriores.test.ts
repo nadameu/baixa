@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest';
 import { multiplicarAnteriores } from './multiplicarAnteriores';
 
 test('multiplicarAnteriores', () => {

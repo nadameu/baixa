@@ -1,3 +1,4 @@
+import { beforeEach, expect, test } from 'vitest';
 import * as Constantes from '../constantes';
 import { etapa3 } from './etapa3';
 

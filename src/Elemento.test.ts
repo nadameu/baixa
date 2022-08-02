@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest';
 import { Elemento } from './Elemento';
 import { RadioInput } from './RadioInput';
 

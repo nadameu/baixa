@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest';
 import { RadioInput } from '.';
 
 test('fromId', () => {

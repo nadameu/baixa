@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest';
 import { NEArray } from '.';
 
 test('Vazio', () => {

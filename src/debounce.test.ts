@@ -1,24 +1,25 @@
+import { expect, test, vitest } from 'vitest';
 import { debounce } from './debounce';
 
 test('debounce', () => {
-	jest.useFakeTimers();
-	const fn = jest.fn();
+	vitest.useFakeTimers();
+	const fn = vitest.fn();
 	const debounced = debounce(100, fn);
 
 	debounced();
 
-	jest.advanceTimersByTime(20);
+	vitest.advanceTimersByTime(20);
 	debounced();
 
-	jest.advanceTimersByTime(20);
+	vitest.advanceTimersByTime(20);
 	debounced();
 
-	jest.advanceTimersByTime(99);
+	vitest.advanceTimersByTime(99);
 	expect(fn).toHaveBeenCalledTimes(0);
 
-	jest.advanceTimersByTime(1);
+	vitest.advanceTimersByTime(1);
 	expect(fn).toHaveBeenCalledTimes(1);
 
-	jest.runAllTimers();
+	vitest.runAllTimers();
 	expect(fn).toHaveBeenCalledTimes(1);
 });

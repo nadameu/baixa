@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest';
 import { adicionarEstilos } from './adicionarEstilos';
 
 test('adicionarEstilos', () => {

@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest';
 import { OSD } from './OSD';
 
 test('Resultado', () => {
@@ -12,9 +13,11 @@ test('Resultado', () => {
 	expect(document.documentElement).toMatchInlineSnapshot(`
 		<html>
 		  <head>
-		    <style>
-		      /* THIS IS A MOCK CSS MODULE */
-		    </style>
+		    <style
+		      id="/home/nadameu/sandbox/baixa/src/OSD.css"
+		      type="text/css"
+		    />
+		    <style />
 		  </head>
 		  <body>
 		    <div>

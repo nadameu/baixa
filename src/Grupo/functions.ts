@@ -10,7 +10,7 @@ export function fromIds(ids: string[]): Grupo | GrupoVazio | null {
 
 	if (todosNulos(radios)) {
 		// Grupos vazios são permitidos
-		return ([] as ReadonlyArray<RadioInput>) as GrupoVazio;
+		return [] as ReadonlyArray<RadioInput> as GrupoVazio;
 	}
 	if (nenhumNulo(radios)) {
 		// Todos os elementos do grupo devem ser obtidos

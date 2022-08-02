@@ -1,8 +1,8 @@
 import path from 'path';
-import resolve from 'rollup-plugin-node-resolve';
+import resolve from '@rollup/plugin-node-resolve';
 import serve from 'rollup-plugin-serve';
 import { string } from 'rollup-plugin-string';
-import typescript from 'rollup-plugin-typescript';
+import typescript from '@rollup/plugin-typescript';
 import { generateBanner } from './generateBanner';
 import pkg from './package.json';
 
@@ -17,7 +17,7 @@ const config = {
 	plugins: [
 		resolve(),
 
-		typescript(),
+		typescript({ module: 'esnext' }),
 
 		string({
 			include: ['**/*.html', '**/*.css'],

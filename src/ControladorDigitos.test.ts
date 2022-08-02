@@ -1,19 +1,10 @@
+import { expect, test } from 'vitest';
 import { ControladorDigitos } from './ControladorDigitos';
 import { Digito } from './Digito';
 import { Nat } from './Nat';
 
-const [
-	zero,
-	um,
-	dois,
-	tres,
-	quatro,
-	cinco,
-	seis,
-	sete,
-	oito,
-	nove,
-] = Array.from({ length: 10 }, (_, i) => Digito.fromNumber(i)!);
+const [zero, um, dois, tres, quatro, cinco, seis, sete, oito, nove] =
+	Array.from({ length: 10 }, (_, i) => Digito.fromNumber(i)!);
 
 test('maximo 0', () => {
 	const buffer = ControladorDigitos(Nat.fromNumber(0)!);

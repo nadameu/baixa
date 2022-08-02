@@ -1,3 +1,4 @@
+import { describe, expect, test, vitest } from 'vitest';
 import * as Constantes from '../constantes';
 import { Digito } from '../Digito';
 import { Nat } from '../Nat';
@@ -107,17 +108,17 @@ function criarElementos(idGrupo: number, idItens: number[]) {
 describe('onKeyPress', () => {
 	const pushDígito = (() => {
 		let valor = Nat.fromNumber(0)!;
-		return jest.fn(push);
+		return vitest.fn(push);
 		function push(x: Digito) {
 			valor = Nat.fromNumber((valor % 10) * 10 + x)!;
 			return valor;
 		}
 	})();
-	const mostrarTexto = jest.fn();
-	const setValor = jest.fn<void, [Nat]>();
+	const mostrarTexto = vitest.fn();
+	const setValor = vitest.fn<[Nat], void>();
 	document.body.innerHTML = '<button id="button"></button>';
 	const baixar = document.getElementById('button') as HTMLButtonElement;
-	Object.defineProperty(baixar, 'click', { value: jest.fn() });
+	Object.defineProperty(baixar, 'click', { value: vitest.fn() });
 	const handler = onKeyPress({ baixar, mostrarTexto, pushDígito, setValor });
 
 	test('Dígitos', () => {

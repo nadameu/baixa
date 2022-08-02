@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest';
 import { ocultarMenuLateral } from './ocultarMenuLateral';
 
 test('ocultarMenuLateral', () => {

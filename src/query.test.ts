@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest';
 import { query } from './query';
 
 test('Elemento existente', () => {

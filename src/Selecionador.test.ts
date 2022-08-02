@@ -1,7 +1,8 @@
+import { expect, test } from 'vitest';
 import { Grupo } from './Grupo';
 import { Grupos } from './Grupos';
-import { Selecionador } from './Selecionador';
 import { Nat } from './Nat';
+import { Selecionador } from './Selecionador';
 
 test('Selecionador', () => {
 	document.body.innerHTML = `
